@@ -1,0 +1,80 @@
+.chartCard {
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.chartTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-text-gray-text-primary);
+  margin: 0;
+}
+
+.chartSubtitle {
+  font-size: 0.75rem;
+  color: var(--color-text-text-gray-text-tertiary);
+}
+
+.chartBody {
+  flex: 1;
+  width: 100%;
+}
+
+/* Specific styles for Pie Chart layout */
+.pieContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pieWrapper {
+  margin-bottom: 1.5rem;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.legendItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.legendLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legendLabel {
+  color: var(--color-text-text-gray-text-secondary);
+}
+
+.legendValue {
+  font-weight: 600;
+  color: var(--color-text-text-gray-text-primary);
+}
+
+/* Trigger HMR */

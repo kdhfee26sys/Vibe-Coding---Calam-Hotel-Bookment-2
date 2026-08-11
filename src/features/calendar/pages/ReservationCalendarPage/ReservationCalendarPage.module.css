@@ -1,0 +1,264 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-text-gray-text-primary);
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-text-gray-text-tertiary);
+  margin: 0;
+}
+
+.actionArea {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toggleGroup {
+  display: flex;
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  border-radius: 8px;
+  padding: 2px;
+  height: 36px;
+}
+
+.toggleButton {
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggleButton.active {
+  background-color: var(--color-bg-bg-color-bg-brand-solid);
+  color: var(--color-text-text-gray-text-white);
+}
+
+.filterSelect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 36px;
+  padding: 0 1rem;
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  border-radius: 8px;
+  color: var(--color-text-text-gray-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  border-radius: 8px;
+  color: var(--color-text-text-gray-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.iconButton:hover {
+  background-color: var(--color-bg-bg-gray-bg-secondary-hover);
+}
+
+.card {
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.calendarWrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 480px;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: 140px repeat(10, minmax(0, 1fr));
+}
+
+/* Grid Headers */
+.gridHeader {
+  padding: 1rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-secondary);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-border-gray-border-primary);
+  border-right: 1px solid var(--color-border-border-gray-border-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Make header sticky */
+  position: sticky;
+  top: 0;
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  z-index: 20;
+}
+
+.gridHeader.roomHeader {
+  justify-content: flex-start;
+  padding-left: 1rem;
+  /* Add z-index higher than other headers if we want horizontal sticky too, but for now just vertical is fine */
+  z-index: 21;
+}
+
+.gridHeader:last-child {
+  border-right: none;
+}
+
+/* Grid Cells */
+.gridRow {
+  display: contents; /* Allows children to participate in the parent's grid */
+}
+
+.roomInfoCell {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border-border-gray-border-primary);
+  border-right: 1px solid var(--color-border-border-gray-border-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.roomNumber {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-text-text-gray-text-primary);
+}
+
+.roomType {
+  font-size: 0.75rem;
+  color: var(--color-text-text-gray-text-tertiary);
+}
+
+.dateCell {
+  border-bottom: 1px solid var(--color-border-border-gray-border-primary);
+  border-right: 1px solid var(--color-border-border-gray-border-primary);
+  position: relative; 
+}
+
+.dateCell:last-child {
+  border-right: none;
+}
+
+/* Removing bottom border for the last row */
+.gridRow:last-child .roomInfoCell,
+.gridRow:last-child .dateCell {
+  border-bottom: none;
+}
+
+/* Reservation Block - Absolutely positioned relative to grid */
+.reservationBlock {
+  background-color: var(--color-bg-bg-color-bg-brand-primary);
+  color: var(--color-text-text-color-text-brand-primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  margin: 1px; /* Small margin so borders are still visible */
+  height: calc(100% - 2px); /* Full height minus margins */
+  border-radius: 2px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 10;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Legend Area */
+.legendArea {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--color-border-border-gray-border-primary);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-text-gray-text-secondary);
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legendColor.terisi {
+  background-color: var(--color-bg-bg-color-bg-brand-primary);
+}
+
+.legendColor.kosong {
+  background-color: transparent;
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+}
+
+.legendAction {
+  margin-left: 2rem;
+  font-size: 0.875rem;
+  color: var(--color-text-text-gray-text-secondary);
+}
+
+/* Dark Mode Overrides for Calendar Blocks */
+:global([data-theme='dark']) .reservationBlock {
+  background-color: var(--color-utility-utility-color-utility-brand-200);
+  color: var(--color-utility-utility-color-utility-brand-700);
+}
+
+:global([data-theme='dark']) .legendColor.terisi {
+  background-color: var(--color-utility-utility-color-utility-brand-200);
+}
+
+/* Trigger HMR */

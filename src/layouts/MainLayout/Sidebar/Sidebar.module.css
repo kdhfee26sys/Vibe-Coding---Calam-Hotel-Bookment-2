@@ -1,0 +1,108 @@
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border-right: 1px solid var(--color-border-border-gray-border-secondary);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1rem;
+  flex-shrink: 0;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 0.5rem 2rem 0.5rem;
+}
+
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-bg-bg-color-bg-brand-solid);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-text-gray-text-primary);
+}
+
+.logoText p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--color-text-text-gray-text-tertiary);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  overflow-y: auto; /* Allow scrolling if many items */
+}
+
+/* Custom scrollbar for nav */
+.nav::-webkit-scrollbar {
+  width: 4px;
+}
+.nav::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-border-gray-border-secondary);
+  border-radius: 4px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: var(--color-text-text-gray-text-tertiary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.navItem:hover {
+  background-color: var(--color-bg-bg-gray-bg-secondary-hover);
+  color: var(--color-text-text-gray-text-primary);
+}
+
+.navItem.active {
+  background-color: var(--color-bg-bg-color-bg-brand-primary);
+  color: var(--color-text-text-color-text-brand-primary-alt);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottomCard {
+  margin-top: auto;
+  padding: 1rem;
+  background-color: var(--color-bg-bg-color-bg-brand-primary);
+  border-radius: 12px;
+}
+
+.hotelInfo h4 {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-text-color-text-brand-primary-alt);
+}
+
+.hotelInfo p {
+  margin: 0;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--color-text-text-color-text-brand-primary-alt);
+  opacity: 0.8;
+}

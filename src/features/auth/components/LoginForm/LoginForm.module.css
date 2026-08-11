@@ -1,0 +1,72 @@
+.card {
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border-radius: 16px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid var(--color-border-border-gray-border-primary);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08); /* More prominent shadow like design */
+}
+
+.iconWrapper {
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-bg-bg-color-bg-brand-solid); /* Brand purple */
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-text-gray-text-primary);
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.buttonContainer {
+  margin-top: 1.5rem;
+}
+
+.buttonContainer button {
+  height: 40px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.forgotPassword {
+  color: var(--color-text-text-gray-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgotPassword:hover {
+  color: var(--color-text-text-gray-text-primary);
+}
+
+.signup {
+  color: var(--color-text-text-color-text-brand-primary); /* Purple text */
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.signup:hover {
+  opacity: 0.8;
+}

@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+  overflow: hidden;
+}
+
+.heroSection {
+  display: none; /* Hide on mobile by default */
+  width: 50%;
+  position: relative;
+  background-image: url('../../assets/login-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Show hero section on desktop */
+@media (min-width: 1024px) {
+  .heroSection {
+    display: block;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(98, 43, 219, 0.5); /* Slightly darker brand purple with lower opacity for better blend */
+  mix-blend-mode: color; /* 'color' or 'multiply' usually looks better for hotel shots */
+}
+
+/* Add a secondary overlay for darkening */
+.heroSection::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+  z-index: 1;
+}
+
+.heroContentWrapper {
+  position: relative;
+  z-index: 2; /* Ensure text is above overlays */
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 4rem;
+}
+
+.heroContent {
+  max-width: 600px; /* Increased to allow one-line subtitle if possible */
+  color: var(--color-text-text-gray-text-white);
+}
+
+.title {
+  font-size: 4.5rem;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85); /* Clean white with opacity */
+  line-height: 1.3;
+}
+
+.formSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+@media (min-width: 1024px) {
+  .formSection {
+    width: 50%;
+  }
+}

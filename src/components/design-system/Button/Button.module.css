@@ -1,0 +1,48 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  height: 2.25rem;
+  border-radius: 8px; /* Assuming 8px based on modern design */
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent; /* Prevents height shift compared to secondary */
+  outline: none;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.pillShape {
+  border-radius: 9999px;
+}
+
+.primary {
+  background-color: var(--color-bg-bg-color-bg-brand-solid);
+  color: var(--color-text-text-gray-text-white);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--color-bg-bg-color-bg-brand-solid-hover);
+}
+
+.secondary {
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+  color: var(--color-text-text-gray-text-primary);
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--color-bg-bg-gray-bg-secondary-hover);
+}
