@@ -29,12 +29,12 @@
 }
 
 .primary {
-  background-color: var(--color-bg-bg-color-bg-brand-solid);
+  background: var(--gradient-brand);
   color: var(--color-text-text-gray-text-white);
 }
 
 .primary:hover:not(:disabled) {
-  background-color: var(--color-bg-bg-color-bg-brand-solid-hover);
+  background: var(--gradient-brand-hover);
 }
 
 .secondary {

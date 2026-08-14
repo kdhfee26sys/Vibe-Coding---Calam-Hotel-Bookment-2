@@ -1,0 +1,263 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-text-gray-text-display, #0B0D12);
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-text-gray-text-tertiary);
+  margin: 0;
+}
+
+.actionArea {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.exportBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 36px;
+  padding: 0 1rem;
+  background-color: transparent;
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  border-radius: 8px;
+  color: var(--color-text-text-gray-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exportBtn:hover {
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+}
+
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 36px;
+  padding: 0 1rem;
+  background-color: var(--color-bg-bg-color-bg-brand-solid);
+  color: var(--color-text-text-gray-text-white);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.primaryBtn:hover {
+  background-color: var(--color-bg-bg-color-bg-brand-solid-hover);
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.summaryCard {
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.summaryLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-tertiary);
+  margin: 0;
+}
+
+.summaryValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-text-gray-text-primary);
+  margin: 0;
+}
+
+.tableContainer {
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.th {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-secondary);
+  border-bottom: 1px solid var(--color-border-border-gray-border-secondary);
+}
+
+.td {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-text-gray-text-primary);
+  border-bottom: 1px solid var(--color-border-border-gray-border-primary);
+  vertical-align: middle;
+}
+
+.tr:last-child .td {
+  border-bottom: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badgePaid {
+  background-color: var(--color-utility-utility-color-utility-success-100);
+  color: var(--color-utility-utility-color-utility-success-700);
+}
+
+.badgePartial {
+  background-color: var(--color-utility-utility-color-utility-warning-100);
+  color: var(--color-utility-utility-color-utility-warning-700);
+}
+
+.badgeRefunded {
+  background-color: var(--color-utility-utility-gray-utility-gray-200);
+  color: var(--color-utility-utility-gray-utility-gray-700);
+}
+
+.badgeUnpaid {
+  background-color: var(--color-utility-utility-color-utility-error-100);
+  color: var(--color-utility-utility-color-utility-error-700);
+}
+
+.actionCell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.actionBtn {
+  padding: 0.375rem 0.75rem;
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.actionBtn:hover {
+  background-color: var(--color-bg-bg-gray-bg-tertiary);
+  color: var(--color-text-text-gray-text-primary);
+}
+
+.actionBtnPrimary {
+  padding: 0.375rem 0.75rem;
+  background-color: var(--color-bg-bg-color-bg-brand-solid);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.actionBtnPrimary:hover {
+  background-color: var(--color-bg-bg-color-bg-brand-solid-hover);
+}
+
+@media (max-width: 1024px) {
+  .summaryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Dark Mode Overrides */
+:global([data-theme='dark']) .badgePaid {
+  background-color: var(--color-utility-utility-color-utility-success-200);
+  color: var(--color-utility-utility-color-utility-success-700);
+}
+
+:global([data-theme='dark']) .badgePartial {
+  background-color: var(--color-utility-utility-color-utility-warning-200);
+  color: var(--color-utility-utility-color-utility-warning-700);
+}
+
+:global([data-theme='dark']) .badgeRefunded {
+  background-color: var(--color-utility-utility-gray-utility-gray-400);
+  color: var(--color-utility-utility-gray-utility-gray-900);
+}
+
+:global([data-theme='dark']) .badgeUnpaid {
+  background-color: var(--color-utility-utility-color-utility-error-200);
+  color: var(--color-utility-utility-color-utility-error-700);
+}
+
+:global([data-theme='dark']) .primaryBtn,
+:global([data-theme='dark']) .actionBtnPrimary {
+  background-color: var(--color-utility-utility-color-utility-brand-600);
+}
+
+:global([data-theme='dark']) .primaryBtn:hover,
+:global([data-theme='dark']) .actionBtnPrimary:hover {
+  background-color: var(--color-utility-utility-color-utility-brand-700);
+}

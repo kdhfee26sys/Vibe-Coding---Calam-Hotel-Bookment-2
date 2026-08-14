@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
-import { Button } from '../../../../components/design-system/Button/Button';
+import { Select } from '../../../../components/design-system/Select/Select';
 import styles from './ReservationCalendarPage.module.css';
-
-// Hardcoded dates for the grid based on Figma design
-const dates = [
-  '28/07', '29/07', '30/07', '31/07', '01/08', 
-  '02/08', '03/08', '04/08', '05/08', '06/08'
-];
 
 // Hardcoded room data
 const rooms = [
@@ -22,18 +15,55 @@ const rooms = [
   { id: '305', type: 'Suite' },
 ];
 
-// Hardcoded reservations mapped to grid positions
-// Column 1 is Room Info. Columns 2 to 11 are dates.
-const reservations = [
-  { room: '102', name: 'Erika', startCol: 2, span: 2 }, // 28/07 to 29/07
-  { room: '105', name: 'Bagas', startCol: 5, span: 1 }, // 31/07
-  { room: '203', name: 'Andini', startCol: 5, span: 2 }, // 31/07 to 01/08
-  { room: '204', name: 'Dimas', startCol: 8, span: 3 }, // 04/08 to 06/08
-  { room: '301', name: 'Clara', startCol: 3, span: 4 }, // 29/07 to 01/08
-];
+// Dynamic data for different views
+const viewData = {
+  harian: {
+    subtitle: 'Daily view · 29 July 2026',
+    dates: ['28/07', '29/07', '30/07'],
+    reservations: [
+      { room: '102', name: 'Erika', startIndex: 0, span: 2 },
+      { room: '301', name: 'Clara', startIndex: 1, span: 2 },
+      { room: '204', name: 'Dimas', startIndex: 1, span: 1 },
+    ]
+  },
+  mingguan: {
+    subtitle: 'Weekly view · Week 1',
+    dates: ['28/07', '29/07', '30/07', '31/07', '01/08', '02/08', '03/08'],
+    reservations: [
+      { room: '102', name: 'Erika', startIndex: 0, span: 2 },
+      { room: '105', name: 'Bagas', startIndex: 3, span: 1 },
+      { room: '203', name: 'Andini', startIndex: 3, span: 2 },
+      { room: '204', name: 'Dimas', startIndex: 6, span: 1 },
+      { room: '301', name: 'Clara', startIndex: 1, span: 4 },
+    ]
+  },
+  bulanan: {
+    subtitle: 'Monthly view · July 2026',
+    dates: ['01-03', '04-06', '07-09', '10-12', '13-15', '16-18', '19-21', '22-24', '25-27', '28-31'],
+    reservations: [
+      { room: '101', name: 'Bagas', startIndex: 2, span: 2 },
+      { room: '204', name: 'Dimas', startIndex: 5, span: 3 },
+      { room: '302', name: 'Siti', startIndex: 1, span: 4 },
+      { room: '305', name: 'Reza', startIndex: 7, span: 2 },
+    ]
+  }
+};
 
 export const ReservationCalendarPage: React.FC = () => {
   const [viewMode, setViewMode] = useState<'harian' | 'mingguan' | 'bulanan'>('mingguan');
+  const [selectedRoomType, setSelectedRoomType] = useState('All types');
+
+  const handleRoomTypeSelect = (type: string) => {
+    setSelectedRoomType(type);
+  };
+
+  const currentData = viewData[viewMode];
+  const { dates, reservations, subtitle } = currentData;
+
+  // Filter rooms based on selected room type
+  const filteredRooms = selectedRoomType === 'All types' 
+    ? rooms 
+    : rooms.filter(room => room.type === selectedRoomType);
 
   return (
     <div className={styles.pageContainer}>
@@ -42,7 +72,7 @@ export const ReservationCalendarPage: React.FC = () => {
       <header className={styles.header}>
         <div className={styles.titleArea}>
           <h1 className={styles.title}>Reservation Calendar</h1>
-          <p className={styles.subtitle}>Tampilan mingguan · minggu 1</p>
+          <p className={styles.subtitle}>{subtitle}</p>
         </div>
         
         <div className={styles.actionArea}>
@@ -51,49 +81,38 @@ export const ReservationCalendarPage: React.FC = () => {
               className={`${styles.toggleButton} ${viewMode === 'harian' ? styles.active : ''}`}
               onClick={() => setViewMode('harian')}
             >
-              Harian
+              Daily
             </button>
             <button 
               className={`${styles.toggleButton} ${viewMode === 'mingguan' ? styles.active : ''}`}
               onClick={() => setViewMode('mingguan')}
             >
-              Mingguan
+              Weekly
             </button>
             <button 
               className={`${styles.toggleButton} ${viewMode === 'bulanan' ? styles.active : ''}`}
               onClick={() => setViewMode('bulanan')}
             >
-              Bulanan
+              Monthly
             </button>
           </div>
-          
-          <button className={styles.filterSelect}>
-            Semua tipe <ChevronDown size={16} />
-          </button>
-          
-          <button className={styles.iconButton}>
-            <ChevronLeft size={18} />
-          </button>
-          <button className={styles.iconButton}>
-            <ChevronRight size={18} />
-          </button>
-          
-          <Button variant="primary">
-            <Plus size={16} />
-            New Booking
-          </Button>
+          <Select
+            options={['All types', 'Standard', 'Deluxe', 'Suite']}
+            value={selectedRoomType}
+            onChange={handleRoomTypeSelect}
+          />
         </div>
       </header>
 
       {/* Calendar Card */}
       <div className={`${styles.card} animate-pop-in`}>
         <div className={styles.calendarWrapper}>
-          <div className={styles.calendarGrid}>
+          <div className={styles.calendarGrid} style={{ gridTemplateColumns: `140px repeat(${dates.length}, minmax(0, 1fr))` }}>
             
             {/* Header Row */}
             <div className={styles.gridRow}>
               <div className={`${styles.gridHeader} ${styles.roomHeader}`}>
-                Kamar
+                Room
               </div>
               {dates.map(date => (
                 <div key={date} className={styles.gridHeader}>
@@ -103,7 +122,7 @@ export const ReservationCalendarPage: React.FC = () => {
             </div>
 
             {/* Room Rows */}
-            {rooms.map((room) => {
+            {filteredRooms.map((room) => {
               // Find reservations for this room
               const roomReservations = reservations.filter(r => r.room === room.id);
               
@@ -116,21 +135,15 @@ export const ReservationCalendarPage: React.FC = () => {
                   </div>
                   
                   {/* Date Cells */}
-                  {/* We render exactly 10 empty cells for the grid background */}
                   {dates.map((date, index) => (
                     <div key={`${room.id}-${date}`} className={styles.dateCell}>
                       {/* Check if a reservation starts exactly at this column */}
-                      {roomReservations.find(r => r.startCol - 2 === index) && (() => {
-                        const res = roomReservations.find(r => r.startCol - 2 === index)!;
+                      {roomReservations.find(r => r.startIndex === index) && (() => {
+                        const res = roomReservations.find(r => r.startIndex === index)!;
                         return (
                           <div 
                             className={styles.reservationBlock}
                             style={{ 
-                              // Position the block using absolute positioning relative to the cell, 
-                              // or just make it span across. Since it's inside the cell, we can set width
-                              // based on the span. 100% is 1 cell, 200% is 2 cells, etc. plus borders.
-                              // Actually, CSS Grid would be better if blocks were direct children of .calendarGrid.
-                              // But since they are inside .dateCell, we can use absolute positioning to span over the next cells.
                               position: 'absolute',
                               top: 0,
                               left: 0,
@@ -154,15 +167,15 @@ export const ReservationCalendarPage: React.FC = () => {
         <div className={styles.legendArea}>
           <div className={styles.legendItem}>
             <div className={`${styles.legendColor} ${styles.terisi}`}></div>
-            <span>Terisi</span>
+            <span>Occupied</span>
           </div>
           <div className={styles.legendItem}>
             <div className={`${styles.legendColor} ${styles.kosong}`}></div>
-            <span>Kosong</span>
+            <span>Available</span>
           </div>
           
           <div className={styles.legendAction}>
-            Tampilkan sebagai list
+            View as list
           </div>
         </div>
       </div>

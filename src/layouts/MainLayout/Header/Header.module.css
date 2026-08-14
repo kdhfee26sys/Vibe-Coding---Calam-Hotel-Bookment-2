@@ -10,6 +10,21 @@
   flex-shrink: 0;
 }
 
+.leftSection {
+  display: flex;
+  align-items: center;
+}
+
+.menuButton {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--color-text-text-gray-text-primary);
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .searchContainer {
   display: flex;
   align-items: center;
@@ -17,8 +32,8 @@
   border: 1px solid var(--color-border-border-gray-border-secondary);
   border-radius: 999px; /* Pill shape */
   padding: 0.5rem 1rem;
-  width: 100%;
-  max-width: 400px;
+  width: 400px;
+  max-width: 100%;
   transition: all 0.2s ease;
 }
 
@@ -151,7 +166,52 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   padding: 0.5rem;
   z-index: 100;
-  min-width: 150px;
+  min-width: 220px;
+}
+
+.dropdownHeader {
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-text-gray-text-primary);
+}
+
+.dropdownRole {
+  font-size: 0.75rem;
+  color: var(--color-text-text-gray-text-tertiary);
+  margin-top: 0.125rem;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background-color: var(--color-border-border-gray-border-secondary);
+  margin: 0.5rem 0;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--color-text-text-gray-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdownItem:hover {
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+  color: var(--color-text-text-gray-text-primary);
 }
 
 .logoutButton {
@@ -172,4 +232,121 @@
 
 .logoutButton:hover {
   background-color: var(--color-bg-bg-color-bg-error-secondary);
+}
+
+/* Notifications */
+.notificationContainer {
+  position: relative;
+}
+
+.notificationDropdown {
+  position: absolute;
+  top: 100%;
+  right: -10px;
+  margin-top: 0.75rem;
+  width: 320px;
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.notificationHeader {
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-text-text-gray-text-primary);
+  border-bottom: 1px solid var(--color-border-border-gray-border-secondary);
+}
+
+.notificationList {
+  display: flex;
+  flex-direction: column;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.notificationItem {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--color-border-border-gray-border-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.notificationItem:hover {
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+}
+
+.notificationTitle {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--color-text-text-gray-text-primary);
+}
+
+.notificationDesc {
+  font-size: 0.75rem;
+  color: var(--color-text-text-gray-text-secondary);
+}
+
+.notificationTime {
+  font-size: 0.7rem;
+  color: var(--color-text-text-gray-text-tertiary);
+  margin-top: 0.25rem;
+}
+
+.notificationFooter {
+  padding: 0.75rem;
+  background: transparent;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-secondary);
+  cursor: pointer;
+  border-radius: 0 0 8px 8px;
+  transition: all 0.2s ease;
+}
+
+.notificationFooter:hover {
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+  color: var(--color-text-text-gray-text-primary);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 1rem;
+  }
+  
+  .menuButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .searchContainer {
+    display: none;
+  }
+
+  .profileInfo {
+    display: none;
+  }
+
+  .divider {
+    display: none;
+  }
+  
+  .actions {
+    gap: 0.5rem;
+  }
+  
+  .notificationDropdown {
+    right: -60px; /* Adjust dropdown position on mobile */
+    width: 280px;
+  }
 }

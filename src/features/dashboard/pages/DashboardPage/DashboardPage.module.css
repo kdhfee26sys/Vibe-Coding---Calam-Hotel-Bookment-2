@@ -12,10 +12,28 @@
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-tertiary);
+  margin: 0 0 0.25rem 0;
+}
+
+.greeting {
+  display: block;
+  font-size: 1.875rem;
   font-weight: 700;
   color: var(--color-text-text-gray-text-primary);
-  margin: 0 0 0.25rem 0;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+  letter-spacing: -0.02em;
+}
+
+.nameHighlight {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .subtitle {
@@ -30,26 +48,7 @@
   gap: 1rem;
 }
 
-.dropdownButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0 1rem;
-  height: 2.25rem;
-  background-color: transparent;
-  border: 1px solid var(--color-border-border-gray-border-secondary);
-  border-radius: 8px;
-  color: var(--color-text-text-gray-text-secondary);
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
 
-.dropdownButton:hover {
-  background-color: var(--color-bg-bg-gray-bg-secondary);
-  color: var(--color-text-text-gray-text-primary);
-}
 
 .statsGrid {
   display: grid;
@@ -89,7 +88,13 @@
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
+  }
+  
+  .headerActions {
+    width: 100%;
+    justify-content: space-between;
   }
   
   .statsGrid {

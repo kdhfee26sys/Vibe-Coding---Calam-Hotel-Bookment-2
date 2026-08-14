@@ -1,5 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './RecentActivity.module.css';
+
+interface RecentActivityProps {
+  onSendSummary?: () => void;
+}
 
 interface ActivityItem {
   id: string;
@@ -9,19 +14,19 @@ interface ActivityItem {
 }
 
 const activities: ActivityItem[] = [
-  { id: '1', text: 'Booking baru BK-1045 dari Booking.com', time: '5 menit lalu', colorClass: styles.colorPurple },
-  { id: '2', text: 'Clara Wijaya check-in ke kamar 301', time: '42 menit lalu', colorClass: styles.colorBlue },
-  { id: '3', text: 'Pembayaran Rp 2.400.000 diterima (BK-1042)', time: '1 jam lalu', colorClass: styles.colorGreen },
-  { id: '4', text: 'Ulasan baru bintang 5 dari Google', time: '3 jam lalu', colorClass: styles.colorPurple },
-  { id: '5', text: 'Kamar 205 masuk status maintenance', time: 'Kemarin', colorClass: styles.colorOrange },
+  { id: '1', text: 'New booking BK-1045 from Booking.com', time: '5 mins ago', colorClass: styles.colorPurple },
+  { id: '2', text: 'Clara Wijaya checked into Room 301', time: '42 mins ago', colorClass: styles.colorBlue },
+  { id: '3', text: 'Payment of Rp 2.400.000 received (BK-1042)', time: '1 hour ago', colorClass: styles.colorGreen },
+  { id: '4', text: 'New 5-star review from Google', time: '3 hours ago', colorClass: styles.colorPurple },
+  { id: '5', text: 'Room 205 entered maintenance status', time: 'Yesterday', colorClass: styles.colorOrange },
 ];
 
-export const RecentActivity: React.FC = () => {
+export const RecentActivity: React.FC<RecentActivityProps> = ({ onSendSummary }) => {
   return (
     <div className={`${styles.container} animate-pop-in`}>
       <div className={styles.header}>
         <h3 className={styles.title}>Recent Activity</h3>
-        <a href="#" className={styles.link}>Lihat Semua</a>
+        <Link to="/reports" className={styles.link}>View All</Link>
       </div>
       
       <div className={styles.list}>
@@ -36,8 +41,8 @@ export const RecentActivity: React.FC = () => {
         ))}
       </div>
       
-      <button className={styles.summaryButton}>
-        Kirim Ringkasan Harian
+      <button className={styles.summaryButton} onClick={onSendSummary}>
+        Send Daily Summary
       </button>
     </div>
   );

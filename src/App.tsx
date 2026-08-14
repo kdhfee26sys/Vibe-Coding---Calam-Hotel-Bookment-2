@@ -8,6 +8,15 @@ import { DashboardPage } from './features/dashboard/pages/DashboardPage/Dashboar
 import { BookingManagementPage } from './features/bookings/pages/BookingManagementPage/BookingManagementPage';
 import { RoomManagementPage } from './features/rooms/pages/RoomManagementPage/RoomManagementPage';
 import { ReservationCalendarPage } from './features/calendar/pages/ReservationCalendarPage/ReservationCalendarPage';
+import { GuestManagementPage } from './features/guests/pages/GuestManagementPage/GuestManagementPage';
+import { CheckInOutPage } from './features/check-in-out/pages/CheckInOutPage/CheckInOutPage';
+import { HousekeepingPage } from './features/housekeeping/pages/HousekeepingPage/HousekeepingPage';
+import { PaymentCenterPage } from './features/payments/pages/PaymentCenterPage/PaymentCenterPage';
+import { ReviewManagementPage } from './features/reviews/pages/ReviewManagementPage/ReviewManagementPage';
+import { StaffManagementPage } from './features/staff/pages/StaffManagementPage/StaffManagementPage';
+import { ReportsPage } from './features/reports/pages/ReportsPage/ReportsPage';
+import { SettingsPage } from './features/settings/pages/SettingsPage/SettingsPage';
+import { ProfilePage } from './features/profile/pages/ProfilePage/ProfilePage';
 
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
@@ -35,6 +44,15 @@ function App() {
           <Route path="/bookings" element={<BookingManagementPage />} />
           <Route path="/calendar" element={<ReservationCalendarPage />} />
           <Route path="/rooms" element={<RoomManagementPage />} />
+          <Route path="/guests" element={<GuestManagementPage />} />
+          <Route path="/check-in-out" element={<CheckInOutPage />} />
+          <Route path="/housekeeping" element={<HousekeepingPage />} />
+          <Route path="/payment" element={<PaymentCenterPage />} />
+          <Route path="/reviews" element={<ReviewManagementPage />} />
+          <Route path="/staff" element={<StaffManagementPage />} />
+          <Route path="/reports" element={<ReportsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           {/* Add more routes here later */}
         </Route>
       </Routes>

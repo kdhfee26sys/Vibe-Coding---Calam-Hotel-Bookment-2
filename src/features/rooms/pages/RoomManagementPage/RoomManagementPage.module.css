@@ -30,26 +30,7 @@
   gap: 1rem;
 }
 
-.dropdownButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0 1rem;
-  height: 2.25rem;
-  background-color: transparent;
-  border: 1px solid var(--color-border-border-gray-border-secondary);
-  border-radius: 8px;
-  color: var(--color-text-text-gray-text-secondary);
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
 
-.dropdownButton:hover {
-  background-color: var(--color-bg-bg-gray-bg-secondary);
-  color: var(--color-text-text-gray-text-primary);
-}
 
 .roomsGrid {
   display: grid;
@@ -116,8 +97,8 @@
 .actionButton {
   padding: 0.375rem 0.75rem;
   border-radius: 16px;
-  background-color: var(--color-bg-bg-gray-bg-tertiary);
-  color: var(--color-text-text-gray-text-secondary);
+  background-color: #DADEE4;
+  color: var(--color-text-text-gray-text-secondary, #344054);
   border: none;
   font-size: 0.75rem;
   font-weight: 600;
@@ -126,8 +107,8 @@
 }
 
 .actionButton:hover {
-  background-color: var(--color-bg-bg-gray-bg-quaternary);
-  color: var(--color-text-text-gray-text-primary);
+  background-color: #C6CBD4;
+  color: var(--color-text-text-gray-text-secondary, #344054);
 }
 
 .badge {
@@ -176,6 +157,16 @@
 :global([data-theme='dark']) .badgeMaintenance {
   background-color: var(--color-utility-utility-color-utility-error-200);
   color: var(--color-utility-utility-color-utility-error-700);
+}
+
+:global([data-theme='dark']) .actionButton {
+  background-color: rgba(255, 255, 255, 0.28);
+  color: var(--color-text-text-gray-text-white, #FFFFFF);
+}
+
+:global([data-theme='dark']) .actionButton:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  color: var(--color-text-text-gray-text-white, #FFFFFF);
 }
 
 /* Responsiveness */

@@ -19,7 +19,7 @@
 .logoIcon {
   width: 40px;
   height: 40px;
-  background-color: var(--color-bg-bg-color-bg-brand-solid);
+  background: var(--gradient-brand);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -74,9 +74,10 @@
   color: var(--color-text-text-gray-text-primary);
 }
 
-.navItem.active {
-  background-color: var(--color-bg-bg-color-bg-brand-primary);
-  color: var(--color-text-text-color-text-brand-primary-alt);
+.navItem.active,
+.navItem.active:hover {
+  background: var(--gradient-brand);
+  color: var(--color-text-text-gray-text-white);
 }
 
 .icon {
@@ -88,21 +89,61 @@
 .bottomCard {
   margin-top: auto;
   padding: 1rem;
-  background-color: var(--color-bg-bg-color-bg-brand-primary);
+  background: var(--gradient-brand);
   border-radius: 12px;
 }
 
 .hotelInfo h4 {
   margin: 0;
   font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-text-text-color-text-brand-primary-alt);
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-white);
+  opacity: 0.9;
 }
 
 .hotelInfo p {
   margin: 0;
   margin-top: 0.25rem;
   font-size: 0.75rem;
-  color: var(--color-text-text-color-text-brand-primary-alt);
-  opacity: 0.8;
+  color: var(--color-text-text-gray-text-white);
+  opacity: 0.65;
+}
+
+/* Mobile Responsiveness */
+.overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .overlayOpen {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }

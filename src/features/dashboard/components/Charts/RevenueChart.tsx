@@ -18,9 +18,9 @@ export const RevenueChart: React.FC = () => {
         <h3 className={styles.chartTitle}>Revenue & Booking Trend</h3>
         <span className={styles.chartSubtitle}>dalam juta rupiah</span>
       </div>
-      <div className={styles.chartBody}>
-        <ResponsiveContainer width="100%" height={260}>
-          <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 15 }}>
+      <div className={styles.chartBody} style={{ minHeight: '260px' }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="var(--color-bg-bg-color-bg-brand-solid)" stopOpacity={0.3}/>
@@ -33,7 +33,7 @@ export const RevenueChart: React.FC = () => {
               axisLine={false} 
               tickLine={false} 
               tick={{ fill: 'var(--color-text-text-gray-text-tertiary)', fontSize: 12 }} 
-              tickMargin={16}
+              tickMargin={8}
             />
             <YAxis 
               axisLine={false} 

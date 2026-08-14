@@ -65,6 +65,8 @@
   --color-bg-bg-color-bg-brand-secondary: #D9CBFF;
   --color-bg-bg-color-bg-brand-solid: #8A5DFF;
   --color-bg-bg-color-bg-brand-solid-hover: #5938AE;
+  --gradient-brand: linear-gradient(135deg, #8A5DFF 0%, #4F46E5 100%);
+  --gradient-brand-hover: linear-gradient(135deg, #7C3AED 0%, #4338CA 100%);
   --color-bg-bg-color-bg-brand-section: #402585;
   --color-bg-bg-color-bg-brand-section-subtle: #5938AE;
   --color-bg-bg-color-bg-secondary-color: #FFF1D9;
@@ -259,6 +261,8 @@
   --color-bg-bg-color-bg-brand-secondary: #714AD6;
   --color-bg-bg-color-bg-brand-solid: #9E79FF;
   --color-bg-bg-color-bg-brand-solid-hover: #8A5DFF;
+  --gradient-brand: linear-gradient(135deg, #9E79FF 0%, #6366F1 100%);
+  --gradient-brand-hover: linear-gradient(135deg, #8A5DFF 0%, #4F46E5 100%);
   --color-bg-bg-color-bg-brand-section: #22262F;
   --color-bg-bg-color-bg-brand-section-subtle: #0C0E12;
   --color-bg-bg-color-bg-secondary-color: #FFC45D;

@@ -173,6 +173,10 @@
   border-bottom: none;
 }
 
+.table tbody tr {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
 .table tbody tr:hover {
   background-color: var(--color-bg-bg-gray-bg-secondary);
 }
@@ -261,33 +265,48 @@
 
 /* Dark Mode Badges Override */
 :global([data-theme='dark']) .statusConfirmed {
-  background-color: #2E1065;
-  color: #A78BFA;
+  background-color: var(--color-utility-utility-color-utility-brand-200);
+  color: var(--color-utility-utility-color-utility-brand-700);
 }
 :global([data-theme='dark']) .statusPending {
-  background-color: #451A03;
-  color: #E5E7EB;
+  background-color: var(--color-utility-utility-color-utility-warning-200);
+  color: var(--color-utility-utility-color-utility-warning-700);
 }
 :global([data-theme='dark']) .statusCheckedIn {
-  background-color: #064E3B;
-  color: #34D399;
+  background-color: var(--color-utility-utility-color-utility-success-200);
+  color: var(--color-utility-utility-color-utility-success-700);
 }
 :global([data-theme='dark']) .statusCheckedOut {
-  background-color: #374151;
-  color: #9CA3AF;
+  background-color: var(--color-utility-utility-gray-utility-gray-400);
+  color: var(--color-utility-utility-gray-utility-gray-900);
 }
 
 :global([data-theme='dark']) .paymentPaid {
-  background-color: #064E3B;
-  color: #34D399;
+  background-color: var(--color-utility-utility-color-utility-success-200);
+  color: var(--color-utility-utility-color-utility-success-700);
 }
 :global([data-theme='dark']) .paymentUnpaid {
-  background-color: #7F1D1D;
-  color: #FECACA;
+  background-color: var(--color-utility-utility-color-utility-error-200);
+  color: var(--color-utility-utility-color-utility-error-700);
 }
 :global([data-theme='dark']) .paymentPartial {
-  background-color: #451A03;
-  color: #E5E7EB;
+  background-color: var(--color-utility-utility-color-utility-warning-200);
+  color: var(--color-utility-utility-color-utility-warning-700);
+}
+
+/* Highlighted Row Effect */
+.highlightedRow {
+  background: var(--gradient-brand) !important;
+}
+
+.highlightedRow td,
+.highlightedRow td.boldText {
+  color: var(--color-text-text-gray-text-white) !important;
+}
+
+.highlightedRow td span.badge {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: var(--color-text-text-gray-text-white) !important;
 }
 
 /* Trigger HMR */
