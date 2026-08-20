@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { NewStaffModal } from '../../components/NewStaffModal/NewStaffModal';
 import { Button } from '../../../../components/design-system/Button/Button';
+import { Toast } from '../../../../components/shared/Toast/Toast';
 import styles from './StaffManagementPage.module.css';
 
 interface Staff {
@@ -25,11 +26,16 @@ const mockStaff: Staff[] = [
 export const StaffManagementPage: React.FC = () => {
   const [staffList, setStaffList] = useState<Staff[]>(mockStaff);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [actionIndicator, setActionIndicator] = useState<{id: string, text: string} | null>(null);
+  const [toastMessage, setToastMessage] = useState('');
+  const [isToastVisible, setIsToastVisible] = useState(false);
+
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    setIsToastVisible(true);
+  };
 
   const handleResetPassword = (id: string) => {
-    setActionIndicator({ id, text: 'Successfully reset password' });
-    setTimeout(() => setActionIndicator(null), 3000);
+    showToast('Successfully reset password');
   };
 
   const handleToggleStatus = (id: string, currentStatus: string) => {
@@ -38,11 +44,7 @@ export const StaffManagementPage: React.FC = () => {
         ? { ...staff, status: currentStatus === 'Aktif' ? 'Nonaktif' : 'Aktif' } 
         : staff
     ));
-    setActionIndicator({ 
-      id, 
-      text: currentStatus === 'Aktif' ? 'Successfully deactivated' : 'Successfully activated' 
-    });
-    setTimeout(() => setActionIndicator(null), 3000);
+    showToast(currentStatus === 'Aktif' ? 'Successfully deactivated' : 'Successfully activated');
   };
 
   const handleAddStaff = (newStaff: Staff) => {
@@ -80,14 +82,7 @@ export const StaffManagementPage: React.FC = () => {
           <tbody>
             {staffList.map((staff) => (
               <tr key={staff.id} className={styles.tr}>
-                <td className={styles.td}>
-                  {staff.name}
-                  {actionIndicator?.id === staff.id && (
-                    <span className={`${styles.indicator} ${styles.indicatorSuccess}`}>
-                      {actionIndicator.text}
-                    </span>
-                  )}
-                </td>
+                <td className={styles.td}>{staff.name}</td>
                 <td className={`${styles.td} ${styles.emailText}`}>{staff.email}</td>
                 <td className={styles.td}>{staff.role}</td>
                 <td className={styles.td}>{staff.shift}</td>
@@ -116,6 +111,13 @@ export const StaffManagementPage: React.FC = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onAddStaff={handleAddStaff}
+      />
+
+      <Toast 
+        message={toastMessage} 
+        isVisible={isToastVisible} 
+        onClose={() => setIsToastVisible(false)} 
+        variant="success"
       />
     </div>
   );

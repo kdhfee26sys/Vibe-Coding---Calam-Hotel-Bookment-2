@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, Star } from 'lucide-react';
+import { Download, Star, Flag } from 'lucide-react';
 import { Button } from '../../../../components/design-system/Button/Button';
 import { Select } from '../../../../components/design-system/Select/Select';
 import styles from './ReviewManagementPage.module.css';
@@ -46,6 +46,21 @@ export const ReviewManagementPage: React.FC = () => {
   const [sourceFilter, setSourceFilter] = useState('All Source');
   const [reviews, setReviews] = useState<Review[]>(mockReviews);
   const [replyDrafts, setReplyDrafts] = useState<Record<string, string>>({});
+  const [markedReviews, setMarkedReviews] = useState<Record<string, boolean>>({});
+
+  const handleUseTemplate = (id: string) => {
+    setReplyDrafts(prev => ({ 
+      ...prev, 
+      [id]: "Thank you for your feedback! We truly appreciate you taking the time to share your experience with us. We hope to welcome you back soon." 
+    }));
+  };
+
+  const handleToggleMark = (id: string) => {
+    setMarkedReviews(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
 
   const handleReplyChange = (id: string, text: string) => {
     setReplyDrafts(prev => ({ ...prev, [id]: text }));
@@ -113,7 +128,12 @@ export const ReviewManagementPage: React.FC = () => {
           >
             <div className={styles.cardHeader}>
               <div className={styles.guestInfo}>
-                <h3 className={styles.guestName}>{review.guestName}</h3>
+                <h3 className={styles.guestName}>
+                  {review.guestName}
+                  {markedReviews[review.id] && (
+                    <Flag size={14} fill="#F79008" color="#F79008" style={{ marginLeft: '8px', display: 'inline-block' }} />
+                  )}
+                </h3>
                 <p className={styles.reviewMeta}>
                   {review.source} - {review.date}
                 </p>
@@ -144,8 +164,18 @@ export const ReviewManagementPage: React.FC = () => {
                   >
                     Send Reply
                   </button>
-                  <button className={styles.secondaryBtn}>Use Template</button>
-                  <button className={styles.secondaryBtn}>Mark</button>
+                  <button 
+                    className={styles.secondaryBtn}
+                    onClick={() => handleUseTemplate(review.id)}
+                  >
+                    Use Template
+                  </button>
+                  <button 
+                    className={styles.secondaryBtn}
+                    onClick={() => handleToggleMark(review.id)}
+                  >
+                    {markedReviews[review.id] ? 'Unmark' : 'Mark'}
+                  </button>
                 </div>
               </div>
             )}

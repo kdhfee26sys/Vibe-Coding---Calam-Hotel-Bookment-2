@@ -3,6 +3,7 @@ import { Download, Plus } from 'lucide-react';
 import { Button } from '../../../../components/design-system/Button/Button';
 import { Select } from '../../../../components/design-system/Select/Select';
 import { NotePaymentModal } from '../../components/NotePaymentModal/NotePaymentModal';
+import { Toast } from '../../../../components/shared/Toast/Toast';
 import styles from './PaymentCenterPage.module.css';
 
 interface Payment {
@@ -27,6 +28,13 @@ export const PaymentCenterPage: React.FC = () => {
   const [payments, setPayments] = useState<Payment[]>(initialPayments);
   const [statusFilter, setStatusFilter] = useState('All Status');
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [isToastOpen, setIsToastOpen] = useState(false);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setIsToastOpen(true);
+  };
 
   const getBadgeClass = (status: Payment['status']) => {
     switch (status) {
@@ -49,6 +57,11 @@ export const PaymentCenterPage: React.FC = () => {
       }
       return p;
     }));
+    showToast(action === 'done' ? `Payment ${id} marked as Paid` : `Payment ${id} has been refunded`);
+  };
+
+  const handleDownloadInvoice = (id: string) => {
+    showToast(`Downloading invoice for ${id}...`);
   };
 
   const filteredPayments = useMemo(() => {
@@ -123,7 +136,7 @@ export const PaymentCenterPage: React.FC = () => {
                 <td className={styles.td}>{payment.amount}</td>
                 <td className={styles.td}>
                   <div className={styles.actionCell}>
-                    <button className={styles.actionBtn}>Invoice</button>
+                    <button className={styles.actionBtn} onClick={() => handleDownloadInvoice(payment.id)}>Invoice</button>
                     {payment.status === 'Paid' && (
                       <button className={styles.actionBtn} onClick={() => handleAction(payment.id, 'refund')}>Refund</button>
                     )}
@@ -153,7 +166,14 @@ export const PaymentCenterPage: React.FC = () => {
             { ...newPayment, id: `PAY-${9000 + prev.length + 1}` },
             ...prev
           ]);
+          showToast(`Payment ${newPayment.id} added successfully`);
         }} 
+      />
+
+      <Toast 
+        isVisible={isToastOpen} 
+        onClose={() => setIsToastOpen(false)} 
+        message={toastMessage} 
       />
     </div>
   );

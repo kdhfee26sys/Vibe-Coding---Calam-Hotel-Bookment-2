@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Loader2, Check } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import styles from './CheckInOutPage.module.css';
 
 interface CheckInOutGuest {
@@ -70,6 +71,7 @@ export const CheckInOutPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'arrivals' | 'in-house' | 'departures'>('arrivals');
   const [guestsData, setGuestsData] = useState(initialData);
   const [guestStatus, setGuestStatus] = useState<Record<string, 'idle' | 'processing' | 'success' | 'leaving'>>({});
+  const navigate = useNavigate();
 
   const handleProceed = (id: string, tab: 'arrivals' | 'in-house' | 'departures') => {
     if (guestStatus[id]) return; // Prevent double click
@@ -157,7 +159,11 @@ export const CheckInOutPage: React.FC = () => {
                       <span className={`${styles.paymentBadge} ${guest.paymentStatus === 'Paid' ? styles.badgePaid : styles.badgeUnpaid}`}>
                         {guest.paymentStatus}
                       </span>
-                      <button className={styles.detailButton} disabled={status === 'processing'}>
+                      <button 
+                        className={styles.detailButton} 
+                        disabled={status === 'processing'}
+                        onClick={() => navigate('/bookings', { state: { highlightedBookingId: guest.bookingId } })}
+                      >
                         Detail
                       </button>
                       {activeTab !== 'in-house' && (
