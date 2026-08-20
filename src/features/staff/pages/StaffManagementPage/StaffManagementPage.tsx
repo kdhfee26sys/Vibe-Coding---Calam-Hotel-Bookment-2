@@ -25,6 +25,25 @@ const mockStaff: Staff[] = [
 export const StaffManagementPage: React.FC = () => {
   const [staffList, setStaffList] = useState<Staff[]>(mockStaff);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [actionIndicator, setActionIndicator] = useState<{id: string, text: string} | null>(null);
+
+  const handleResetPassword = (id: string) => {
+    setActionIndicator({ id, text: 'Successfully reset password' });
+    setTimeout(() => setActionIndicator(null), 3000);
+  };
+
+  const handleToggleStatus = (id: string, currentStatus: string) => {
+    setStaffList(prev => prev.map(staff => 
+      staff.id === id 
+        ? { ...staff, status: currentStatus === 'Aktif' ? 'Nonaktif' : 'Aktif' } 
+        : staff
+    ));
+    setActionIndicator({ 
+      id, 
+      text: currentStatus === 'Aktif' ? 'Successfully deactivated' : 'Successfully activated' 
+    });
+    setTimeout(() => setActionIndicator(null), 3000);
+  };
 
   const handleAddStaff = (newStaff: Staff) => {
     setStaffList([...staffList, newStaff]);
@@ -61,7 +80,14 @@ export const StaffManagementPage: React.FC = () => {
           <tbody>
             {staffList.map((staff) => (
               <tr key={staff.id} className={styles.tr}>
-                <td className={styles.td}>{staff.name}</td>
+                <td className={styles.td}>
+                  {staff.name}
+                  {actionIndicator?.id === staff.id && (
+                    <span className={`${styles.indicator} ${styles.indicatorSuccess}`}>
+                      {actionIndicator.text}
+                    </span>
+                  )}
+                </td>
                 <td className={`${styles.td} ${styles.emailText}`}>{staff.email}</td>
                 <td className={styles.td}>{staff.role}</td>
                 <td className={styles.td}>{staff.shift}</td>
@@ -72,8 +98,10 @@ export const StaffManagementPage: React.FC = () => {
                 </td>
                 <td className={styles.td}>
                   <div className={styles.actionCell}>
-                    <Button variant="secondary">Reset Password</Button>
-                    <Button variant="secondary">
+                    <Button variant="secondary" onClick={() => handleResetPassword(staff.id)}>
+                      Reset Password
+                    </Button>
+                    <Button variant="secondary" onClick={() => handleToggleStatus(staff.id, staff.status)}>
                       {staff.status === 'Aktif' ? 'Deactivate' : 'Activate'}
                     </Button>
                   </div>

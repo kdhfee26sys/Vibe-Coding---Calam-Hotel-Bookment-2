@@ -121,3 +121,24 @@
   background-color: var(--color-utility-utility-gray-utility-gray-400);
   color: var(--color-utility-utility-gray-utility-gray-900);
 }
+
+.indicator {
+  display: block;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.indicatorSuccess {
+  color: var(--color-utility-utility-color-utility-success-600);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+:global([data-theme='dark']) .indicatorSuccess {
+  color: var(--color-utility-utility-color-utility-success-500);
+}
