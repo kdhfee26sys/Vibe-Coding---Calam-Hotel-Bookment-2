@@ -1,0 +1,243 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(11, 13, 18, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-border-border-gray-border-secondary);
+}
+
+.modalTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-text-gray-text-display);
+  margin: 0;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  color: var(--color-text-text-gray-text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+  color: var(--color-text-text-gray-text-primary);
+}
+
+.modalBody {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--color-bg-bg-color-bg-brand-secondary);
+  color: var(--color-text-text-color-text-brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.nameSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.guestName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-text-gray-text-display);
+  margin: 0;
+}
+
+.vipBadge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  background-color: var(--color-utility-utility-color-utility-warning-100);
+  color: var(--color-utility-utility-color-utility-warning-700);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.infoLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-tertiary);
+  margin: 0;
+}
+
+.infoValue {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-text-gray-text-primary);
+  margin: 0;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-text-gray-text-display);
+  margin: 0;
+  border-bottom: 1px solid var(--color-border-border-gray-border-secondary);
+  padding-bottom: 0.5rem;
+}
+
+.preferencesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.preferenceBadge {
+  background-color: var(--color-bg-bg-color-bg-brand-secondary);
+  color: var(--color-text-text-color-text-brand-primary);
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.bookingsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bookingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border-border-gray-border-secondary);
+  border-radius: 8px;
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+}
+
+.bookingInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.bookingRoom {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-text-gray-text-primary);
+  margin: 0;
+}
+
+.bookingDate {
+  font-size: 0.75rem;
+  color: var(--color-text-text-gray-text-tertiary);
+  margin: 0;
+}
+
+.bookingStatus {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.statusCompleted {
+  background-color: var(--color-utility-utility-color-utility-success-100);
+  color: var(--color-utility-utility-color-utility-success-700);
+}
+
+.statusUpcoming {
+  background-color: var(--color-utility-utility-color-utility-brand-100);
+  color: var(--color-utility-utility-color-utility-brand-700);
+}
+
+.statusCancelled {
+  background-color: var(--color-utility-utility-color-utility-error-100);
+  color: var(--color-utility-utility-color-utility-error-700);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--color-border-border-gray-border-secondary);
+  background-color: var(--color-bg-bg-gray-bg-secondary);
+}
+
+/* Dark Mode Overrides */
+:global([data-theme='dark']) .vipBadge {
+  background-color: var(--color-utility-utility-color-utility-warning-200);
+}
