@@ -162,11 +162,12 @@ export const PaymentCenterPage: React.FC = () => {
         isOpen={isNoteModalOpen} 
         onClose={() => setIsNoteModalOpen(false)} 
         onPaymentAdded={(newPayment) => {
+          const newId = `PAY-${9000 + payments.length + 1}`;
           setPayments(prev => [
-            { ...newPayment, id: `PAY-${9000 + prev.length + 1}` },
+            { ...newPayment, id: newId },
             ...prev
           ]);
-          showToast(`Payment ${newPayment.id} added successfully`);
+          showToast(`Payment ${newId} added successfully`);
         }} 
       />
 
