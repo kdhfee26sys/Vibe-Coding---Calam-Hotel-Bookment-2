@@ -53,7 +53,7 @@ export const OccupancyChart: React.FC = () => {
               formatter={(value) => [`${value}%`, 'Occupancy']}
             />
             <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-              {data.map((entry, index) => (
+              {data.map((_entry, index) => (
                 <Cell key={`cell-${index}`} fill="url(#colorOccupancy)" />
               ))}
             </Bar>

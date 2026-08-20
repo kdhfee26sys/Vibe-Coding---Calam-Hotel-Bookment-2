@@ -2,8 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   LayoutGrid, CalendarDays, Calendar, Bed, Users, 
-  ArrowLeftRight, Home, CreditCard, LineChart, Star, 
-  UserCog, Ticket, FileText, Building2 
+  ArrowLeftRight, Home, CreditCard, Star, 
+  UserCog, FileText, Building2 
 } from 'lucide-react';
 import styles from './Sidebar.module.css';
 
