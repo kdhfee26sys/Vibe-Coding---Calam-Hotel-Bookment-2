@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Search, Plus, Download } from 'lucide-react';
 import { Button } from '../../../../components/design-system/Button/Button';
 import { NewGuestModal } from '../../components/NewGuestModal/NewGuestModal';
@@ -115,6 +116,14 @@ export const GuestManagementPage: React.FC = () => {
   const [guests, setGuests] = useState<Guest[]>(mockGuests);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedGuest, setSelectedGuest] = useState<Guest | null>(null);
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (location.state?.viewGuestName) {
+      const guest = guests.find(g => g.name === location.state.viewGuestName) || guests[0];
+      setSelectedGuest(guest);
+    }
+  }, [location.state, guests]);
 
   return (
     <div className={styles.container}>

@@ -7,17 +7,28 @@ interface ToastProps {
   isVisible: boolean;
   onClose: () => void;
   variant?: 'success' | 'neutral';
+  actionText?: string;
+  onAction?: () => void;
+  duration?: number;
 }
 
-export const Toast: React.FC<ToastProps> = ({ message, isVisible, onClose, variant = 'success' }) => {
+export const Toast: React.FC<ToastProps> = ({ 
+  message, 
+  isVisible, 
+  onClose, 
+  variant = 'success',
+  actionText,
+  onAction,
+  duration = 3000
+}) => {
   useEffect(() => {
     if (isVisible) {
       const timer = setTimeout(() => {
         onClose();
-      }, 3000);
+      }, duration);
       return () => clearTimeout(timer);
     }
-  }, [isVisible, onClose]);
+  }, [isVisible, onClose, duration]);
 
   if (!isVisible) return null;
 
@@ -30,6 +41,17 @@ export const Toast: React.FC<ToastProps> = ({ message, isVisible, onClose, varia
         <span className={`${styles.message} ${variant === 'neutral' ? styles.messageNeutral : styles.messageSuccess}`}>
           {message}
         </span>
+        {actionText && onAction && (
+          <button 
+            className={styles.actionButton} 
+            onClick={() => {
+              onAction();
+              onClose();
+            }}
+          >
+            {actionText}
+          </button>
+        )}
       </div>
     </div>
   );

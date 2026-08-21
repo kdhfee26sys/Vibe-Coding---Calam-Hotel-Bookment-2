@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Search, Plus, Download, Filter } from 'lucide-react';
 import { Button } from '../../../../components/design-system/Button/Button';
@@ -81,8 +81,14 @@ export const BookingManagementPage: React.FC = () => {
   const location = useLocation();
   const [bookings, setBookings] = useState<Booking[]>(mockBookings);
   const [isNewBookingModalOpen, setIsNewBookingModalOpen] = useState(false);
+  const [bookingToEdit, setBookingToEdit] = useState<Booking | null>(null);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [isToastOpen, setIsToastOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('Booking berhasil dibuat');
+  
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+  const [deletedBookingCache, setDeletedBookingCache] = useState<Booking | null>(null);
+  const deleteTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   
   // Pagination State
@@ -101,6 +107,22 @@ export const BookingManagementPage: React.FC = () => {
     location.state?.highlightedBookingId || null
   );
 
+  // FETCH DATA FROM BACKEND
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/bookings');
+        if (response.ok) {
+          const data = await response.json();
+          setBookings(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch bookings:', err);
+      }
+    };
+    fetchBookings();
+  }, []);
+
   useEffect(() => {
     if (highlightedId) {
       const timer = setTimeout(() => {
@@ -111,6 +133,33 @@ export const BookingManagementPage: React.FC = () => {
       return () => clearTimeout(timer);
     }
   }, [highlightedId]);
+
+  const handleBookingAdded = (savedBooking: Booking) => {
+    setBookings(prev => {
+      const exists = prev.find(b => b.id === savedBooking.id);
+      if (exists) {
+        return prev.map(b => b.id === savedBooking.id ? savedBooking : b);
+      } else {
+        return [savedBooking, ...prev];
+      }
+    });
+    setToastMessage(bookingToEdit ? 'Booking berhasil diubah' : 'Booking berhasil dibuat');
+    setPendingDeleteId(null);
+    setShowToast(true);
+    setBookingToEdit(null);
+  };
+
+  const handleUndo = () => {
+    if (deleteTimeoutRef.current) {
+      clearTimeout(deleteTimeoutRef.current);
+    }
+    if (deletedBookingCache) {
+      setBookings(prev => [deletedBookingCache, ...prev]);
+    }
+    setPendingDeleteId(null);
+    setDeletedBookingCache(null);
+    setShowToast(false);
+  };
 
   const getStatusClass = (status: string) => {
     switch (status) {
@@ -171,7 +220,10 @@ export const BookingManagementPage: React.FC = () => {
           <Button variant="secondary">
             <Download size={16} /> Export
           </Button>
-          <Button onClick={() => setIsNewBookingModalOpen(true)}>
+          <Button onClick={() => {
+            setBookingToEdit(null);
+            setIsNewBookingModalOpen(true);
+          }}>
             <Plus size={16} /> New Booking
           </Button>
         </div>
@@ -195,17 +247,6 @@ export const BookingManagementPage: React.FC = () => {
           <Button variant="secondary" onClick={() => setIsFilterModalOpen(true)}>
             <Filter size={16} /> Filters
           </Button>
-          
-          <button 
-            className={styles.resetButton} 
-            onClick={() => {
-              setSearchQuery('');
-              setFilters({ status: 'All', payment: 'All', roomType: 'All', source: 'All' });
-              setCurrentPage(1);
-            }}
-          >
-            Reset
-          </button>
         </div>
 
         {/* Data Table */}
@@ -221,7 +262,8 @@ export const BookingManagementPage: React.FC = () => {
                 <th>Source</th>
                 <th>Status</th>
                 <th>Payment</th>
-                <th style={{ textAlign: 'right' }}>Total</th>
+                <th>Total</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -246,11 +288,76 @@ export const BookingManagementPage: React.FC = () => {
                       {booking.payment}
                     </span>
                   </td>
-                  <td style={{ textAlign: 'right' }} className={styles.boldText}>{booking.total}</td>
+                  <td className={styles.boldText}>{booking.total}</td>
+                  <td>
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-start' }}>
+                      <button 
+                        onClick={() => {
+                          setBookingToEdit(booking);
+                          setIsNewBookingModalOpen(true);
+                        }}
+                        style={{ 
+                          background: '#f3f4f6', 
+                          border: '1px solid #d1d5db', 
+                          borderRadius: '6px',
+                          cursor: 'pointer', 
+                          color: '#374151', 
+                          padding: '6px 12px',
+                          fontSize: '0.85rem',
+                          fontWeight: '500',
+                          transition: 'background 0.2s'
+                        }}
+                        onMouseOver={(e) => e.currentTarget.style.background = '#e5e7eb'}
+                        onMouseOut={(e) => e.currentTarget.style.background = '#f3f4f6'}
+                        title="Edit Booking"
+                      >
+                        Edit
+                      </button>
+                      <button 
+                        onClick={() => {
+                          // Optimistic Delete
+                          setPendingDeleteId(booking.id);
+                          setDeletedBookingCache(booking);
+                          setBookings(prev => prev.filter(b => b.id !== booking.id));
+                          
+                          setToastMessage('Booking berhasil dihapus');
+                          setShowToast(true);
+                          
+                          if (deleteTimeoutRef.current) clearTimeout(deleteTimeoutRef.current);
+                          
+                          deleteTimeoutRef.current = setTimeout(async () => {
+                            try {
+                              await fetch(`http://localhost:3000/api/bookings/${booking.id}`, { method: 'DELETE' });
+                            } catch (err) {
+                              console.error(err);
+                            }
+                            setPendingDeleteId(null);
+                            setDeletedBookingCache(null);
+                          }, 5000);
+                        }}
+                        style={{ 
+                          background: '#fef2f2', 
+                          border: '1px solid #fecaca', 
+                          borderRadius: '6px',
+                          cursor: 'pointer', 
+                          color: '#ef4444', 
+                          padding: '6px 12px',
+                          fontSize: '0.85rem',
+                          fontWeight: '500',
+                          transition: 'background 0.2s'
+                        }}
+                        onMouseOver={(e) => e.currentTarget.style.background = '#fee2e2'}
+                        onMouseOut={(e) => e.currentTarget.style.background = '#fef2f2'}
+                        title="Delete Booking"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               )) : (
                 <tr>
-                  <td colSpan={9} style={{ textAlign: 'center', padding: '2rem' }}>
+                  <td colSpan={10} style={{ textAlign: 'center', padding: '2rem' }}>
                     No bookings found.
                   </td>
                 </tr>
@@ -286,10 +393,8 @@ export const BookingManagementPage: React.FC = () => {
       <NewBookingModal 
         isOpen={isNewBookingModalOpen} 
         onClose={() => setIsNewBookingModalOpen(false)} 
-        onBookingAdded={(bookingData) => {
-          setBookings(prev => [bookingData, ...prev]);
-          setIsToastOpen(true);
-        }} 
+        onBookingAdded={handleBookingAdded}
+        bookingToEdit={bookingToEdit}
       />
 
       <FilterBookingsModal
@@ -303,9 +408,12 @@ export const BookingManagementPage: React.FC = () => {
       />
 
       <Toast 
-        isVisible={isToastOpen} 
-        onClose={() => setIsToastOpen(false)} 
-        message="Booking berhasil dibuat" 
+        isVisible={showToast} 
+        onClose={() => setShowToast(false)} 
+        message={toastMessage} 
+        actionText={pendingDeleteId ? 'Undo' : undefined}
+        onAction={pendingDeleteId ? handleUndo : undefined}
+        duration={pendingDeleteId ? 5000 : 3000}
       />
     </div>
   );

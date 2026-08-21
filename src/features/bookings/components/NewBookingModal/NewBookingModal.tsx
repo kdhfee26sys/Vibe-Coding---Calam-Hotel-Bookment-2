@@ -7,9 +7,10 @@ interface NewBookingModalProps {
   isOpen: boolean;
   onClose: () => void;
   onBookingAdded: (bookingData: any) => void;
+  bookingToEdit?: any | null;
 }
 
-export const NewBookingModal: React.FC<NewBookingModalProps> = ({ isOpen, onClose, onBookingAdded }) => {
+export const NewBookingModal: React.FC<NewBookingModalProps> = ({ isOpen, onClose, onBookingAdded, bookingToEdit }) => {
   const [formData, setFormData] = useState({
     guestName: '',
     room: '101 · Standard',
@@ -22,6 +23,36 @@ export const NewBookingModal: React.FC<NewBookingModalProps> = ({ isOpen, onClos
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // When modal opens or bookingToEdit changes, update the form
+  React.useEffect(() => {
+    if (isOpen) {
+      if (bookingToEdit) {
+        setFormData({
+          guestName: bookingToEdit.guestName,
+          room: bookingToEdit.room,
+          checkIn: bookingToEdit.checkIn,
+          checkOut: bookingToEdit.checkOut,
+          source: bookingToEdit.source,
+          status: bookingToEdit.status,
+          payment: bookingToEdit.payment,
+          total: bookingToEdit.total.replace(/\D/g, '') // remove "Rp " and dots
+        });
+      } else {
+        // Reset form for new booking
+        setFormData({
+          guestName: '',
+          room: '101 · Standard',
+          checkIn: '',
+          checkOut: '',
+          source: 'Website',
+          status: 'Pending',
+          payment: 'Unpaid',
+          total: ''
+        });
+      }
+    }
+  }, [isOpen, bookingToEdit]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -32,15 +63,24 @@ export const NewBookingModal: React.FC<NewBookingModalProps> = ({ isOpen, onClos
     setIsSubmitting(true);
     
     try {
-      // Simulate API call for now since database is removed
-      await new Promise(resolve => setTimeout(resolve, 800));
+      const isEdit = !!bookingToEdit;
+      const url = isEdit ? `http://localhost:3000/api/bookings/${bookingToEdit.id}` : 'http://localhost:3000/api/bookings';
       
-      onBookingAdded({
-        id: `BK-${Math.floor(1000 + Math.random() * 9000)}`,
-        ...formData,
-        total: `Rp ${formData.total.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`
+      const response = await fetch(url, {
+        method: isEdit ? 'PUT' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      onClose();
+
+      if (response.ok) {
+        const savedBooking = await response.json();
+        onBookingAdded(savedBooking); // works for both add and edit
+        onClose();
+      } else {
+        console.error('Failed to save booking');
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -49,7 +89,7 @@ export const NewBookingModal: React.FC<NewBookingModalProps> = ({ isOpen, onClos
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="New Booking">
+    <Modal isOpen={isOpen} onClose={onClose} title={bookingToEdit ? "Edit Booking" : "New Booking"}>
       <form onSubmit={handleSubmit} className={styles.form}>
         
         <div className={styles.formGroup}>
@@ -147,7 +187,7 @@ export const NewBookingModal: React.FC<NewBookingModalProps> = ({ isOpen, onClos
             Cancel
           </Button>
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Saving...' : 'Save Booking'}
+            {isSubmitting ? 'Saving...' : bookingToEdit ? 'Update Booking' : 'Save Booking'}
           </Button>
         </div>
       </form>

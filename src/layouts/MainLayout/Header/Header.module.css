@@ -35,10 +35,12 @@
   width: 400px;
   max-width: 100%;
   transition: all 0.2s ease;
+  cursor: text;
 }
 
-.searchContainer:focus-within {
+.searchContainer:hover, .searchContainer:focus-within {
   border-color: var(--color-border-border-color-border-brand);
+  background-color: var(--color-bg-bg-gray-bg-primary);
   box-shadow: 0 0 0 4px var(--color-bg-bg-color-bg-brand-primary-alt);
 }
 
@@ -51,14 +53,11 @@
   border: none;
   background: transparent;
   flex: 1;
-  color: var(--color-text-text-gray-text-primary);
+  color: var(--color-text-text-gray-text-placeholder);
   font-family: inherit;
   font-size: 0.875rem;
   outline: none;
-}
-
-.searchInput::placeholder {
-  color: var(--color-text-text-gray-text-placeholder);
+  user-select: none;
 }
 
 .shortcut {
