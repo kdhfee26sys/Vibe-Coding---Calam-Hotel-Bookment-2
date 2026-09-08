@@ -9,10 +9,14 @@ datasource db {
 
 model Profile {
   id         String   @id @default(uuid())
+  auth_uid   String?  @unique
   first_name String
   last_name  String?
-  role       String   @default("receptionist") // owner, manager, receptionist, housekeeping, finance, marketing
+  role       String   @default("owner") // owner, manager, receptionist, housekeeping, finance, marketing
   phone      String?
+  bio        String?
+  language   String   @default("en")
+  timezone   String   @default("Asia/Jakarta")
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   

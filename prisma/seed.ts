@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  const roomType1 = await prisma.roomType.create({
+  const standardType = await prisma.roomType.create({
     data: {
       name: 'Standard Room',
       description: 'A cozy room for two',
@@ -12,7 +12,7 @@ async function main() {
     },
   })
 
-  const roomType2 = await prisma.roomType.create({
+  const deluxeType = await prisma.roomType.create({
     data: {
       name: 'Deluxe Room',
       description: 'Spacious room with a city view',
@@ -22,59 +22,65 @@ async function main() {
     },
   })
 
-  const room1 = await prisma.room.create({
+  const suiteType = await prisma.roomType.create({
     data: {
-      room_number: '101',
-      room_type_id: roomType1.id,
-      status: 'available',
-      floor: '1',
+      name: 'Suite Room',
+      description: 'Luxury suite with living room and bathtub',
+      base_price: 1500000.0,
+      capacity: 4,
+      amenities: JSON.stringify(["wifi", "tv", "air_conditioning", "minibar", "living_room", "bathtub"]),
     },
   })
 
-  const room2 = await prisma.room.create({
-    data: {
-      room_number: '201',
-      room_type_id: roomType2.id,
-      status: 'occupied',
-      floor: '2',
-    },
-  })
+  // Standard Rooms
+  await prisma.room.create({ data: { room_number: '101', room_type_id: standardType.id, status: 'available', floor: '1' } });
+  await prisma.room.create({ data: { room_number: '102', room_type_id: standardType.id, status: 'available', floor: '1' } });
+  await prisma.room.create({ data: { room_number: '105', room_type_id: standardType.id, status: 'available', floor: '1' } });
+
+  // Deluxe Rooms
+  await prisma.room.create({ data: { room_number: '201', room_type_id: deluxeType.id, status: 'occupied', floor: '2' } });
+  await prisma.room.create({ data: { room_number: '203', room_type_id: deluxeType.id, status: 'available', floor: '2' } });
+  await prisma.room.create({ data: { room_number: '204', room_type_id: deluxeType.id, status: 'available', floor: '2' } });
+  await prisma.room.create({ data: { room_number: '205', room_type_id: deluxeType.id, status: 'available', floor: '2' } });
+
+  // Suite Rooms
+  await prisma.room.create({ data: { room_number: '301', room_type_id: suiteType.id, status: 'available', floor: '3' } });
+  await prisma.room.create({ data: { room_number: '302', room_type_id: suiteType.id, status: 'available', floor: '3' } });
+  await prisma.room.create({ data: { room_number: '305', room_type_id: suiteType.id, status: 'available', floor: '3' } });
 
   const guest = await prisma.guest.create({
     data: {
-      first_name: 'John',
-      last_name: 'Doe',
-      email: 'john.doe@example.com',
+      first_name: 'Johan',
+      last_name: 'Cruyff',
+      email: 'johan@example.com',
       phone: '08123456789',
       identity_number: 'ID123456789',
     },
   })
 
+  const room201 = await prisma.room.findUnique({ where: { room_number: '201' } });
+
   const booking = await prisma.booking.create({
     data: {
-      booking_code: 'BKG-001',
+      booking_code: 'BK-5720',
       guest_id: guest.id,
-      check_in_date: new Date('2026-08-20T00:00:00.000Z'),
+      check_in_date: new Date('2026-08-21T00:00:00.000Z'),
       check_out_date: new Date('2026-08-25T00:00:00.000Z'),
-      status: 'checked_in',
-      total_amount: 1700000.0,
-    },
-  })
-
-  await prisma.bookingItem.create({
-    data: {
-      booking_id: booking.id,
-      room_id: room2.id,
-      price_per_night: 850000.0,
-    },
-  })
-
-  await prisma.payment.create({
-    data: {
-      booking_id: booking.id,
-      amount: 1700000.0,
-      payment_method: 'credit_card',
-      status: 'completed',
+      status: 'confirmed',
+      total_amount: 3500000.0,
+      booking_items: {
+        create: [{
+          room_id: room201 ? room201.id : '',
+          price_per_night: 850000.0,
+        }]
+      },
+      payments: {
+        create: [{
+          amount: 3500000.0,
+          payment_method: 'credit_card',
+          status: 'completed',
+        }]
+      }
     },
   })
 

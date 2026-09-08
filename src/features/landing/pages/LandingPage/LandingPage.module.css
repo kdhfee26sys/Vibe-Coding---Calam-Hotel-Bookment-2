@@ -1,0 +1,14 @@
+.landingWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-bg-gray-bg-primary, #FFFFFF);
+  color: var(--color-text-text-gray-text-primary, #181D27);
+  overflow-x: hidden;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

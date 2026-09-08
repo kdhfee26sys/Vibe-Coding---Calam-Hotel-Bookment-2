@@ -1,0 +1,378 @@
+.problemSection {
+  padding: 6rem 1.5rem;
+  background-color: var(--color-bg-bg-gray-bg-primary, #FFFFFF);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sectionBadge {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #D92D21;
+  background-color: #FEE4E2;
+  padding: 0.375rem 0.875rem;
+  border-radius: 999px;
+  border: 1px solid #FECDCA;
+}
+
+.sectionTitle {
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text-text-gray-text-display, #0B0D12);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.sectionSubtitle {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-text-text-gray-text-tertiary, #717680);
+  margin: 0;
+}
+
+.sectionSubtitle strong {
+  color: var(--color-text-text-gray-text-primary, #181D27);
+}
+
+/* Problem Grid */
+.problemGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.problemCard {
+  background-color: var(--color-bg-bg-gray-bg-secondary, #F9FAFB);
+  border: 1px solid var(--color-border-border-gray-border-primary, #E9EAEB);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.2s ease;
+}
+
+.problemCard:hover {
+  border-color: var(--color-border-border-gray-border-secondary, #D5D7DA);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -6px rgba(16, 24, 40, 0.06);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iconWrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconRed {
+  background-color: #FEE4E2;
+  border: 1px solid #FECDCA;
+  color: #D92D21;
+}
+
+.iconOrange {
+  background-color: #FFFAEA;
+  color: #DC6903;
+}
+
+.iconYellow {
+  background-color: #FEF6EE;
+  color: #E04F16;
+}
+
+.iconBlue {
+  background-color: #EFF8FF;
+  color: #175CD3;
+}
+
+.problemNumber {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-text-text-gray-text-placeholder, #D5D7DA);
+  font-family: monospace;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-text-gray-text-primary, #181D27);
+  margin: 0;
+}
+
+.cardDesc {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--color-text-text-gray-text-tertiary, #717680);
+  margin: 0;
+}
+
+/* Micro Mockups inside cards */
+.microMockup {
+  margin-top: auto;
+  padding-top: 1rem;
+  background: var(--color-bg-bg-gray-bg-primary, #FFFFFF);
+  border: 1px solid var(--color-border-border-gray-border-primary, #E9EAEB);
+  border-radius: 10px;
+  padding: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mockupAlert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FEE4E2;
+  border: 1px solid #FECDCA;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #B42318;
+}
+
+.alertIconRed { color: #D92D21; }
+
+.mockupConflictBar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.conflictItemA {
+  background: #EDE9FE;
+  border: 1px solid #DDD6FE;
+  color: #6941C6;
+  padding: 4px 8px;
+  border-radius: 4px;
+  flex: 1;
+  text-align: center;
+}
+
+.conflictOverlap {
+  background: #D92D21;
+  color: #FFF;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+}
+
+.conflictItemB {
+  background: #FEE4E2;
+  border: 1px solid #FECDCA;
+  color: #D92D21;
+  padding: 4px 8px;
+  border-radius: 4px;
+  flex: 1;
+  text-align: center;
+}
+
+.tabChaos {
+  display: flex;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.miniTabInactive {
+  background: var(--color-bg-bg-gray-bg-secondary, #F9FAFB);
+  border: 1px solid var(--color-border-border-gray-border-primary, #E9EAEB);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  color: var(--color-text-text-gray-text-quartinary, #A3A7AE);
+}
+
+.miniTabActive {
+  background: #FFFAEA;
+  border: 1px solid #FEDF89;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #B54708;
+}
+
+.slowBar {
+  height: 4px;
+  background: #EAECF0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.slowFill {
+  width: 60%;
+  height: 100%;
+  background: #F79008;
+}
+
+.chatBubbleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.chatBubbleLeft {
+  background: #F2F4F7;
+  padding: 4px 8px;
+  border-radius: 6px 6px 6px 2px;
+  font-size: 0.75rem;
+  color: #344054;
+  align-self: flex-start;
+}
+
+.chatBubbleRight {
+  background: #EDE9FE;
+  padding: 4px 8px;
+  border-radius: 6px 6px 2px 6px;
+  font-size: 0.75rem;
+  color: #6941C6;
+  align-self: flex-end;
+}
+
+.paymentFragmentGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+
+.payBadge {
+  background: var(--color-bg-bg-gray-bg-secondary, #F9FAFB);
+  border: 1px dashed var(--color-border-border-gray-border-secondary, #D5D7DA);
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  color: var(--color-text-text-gray-text-secondary, #414651);
+  text-align: center;
+}
+
+/* ================= DARK MODE OVERRIDES ================= */
+:global([data-theme='dark']) .sectionBadge {
+  background-color: rgba(240, 68, 56, 0.25);
+  border-color: rgba(249, 112, 102, 0.45);
+  color: #FDA29B;
+}
+
+:global([data-theme='dark']) .problemCard {
+  background-color: var(--color-bg-bg-gray-bg-secondary, #14161B);
+  border-color: var(--color-border-border-gray-border-primary, #22262F);
+}
+
+:global([data-theme='dark']) .iconRed {
+  background-color: rgba(240, 68, 56, 0.25);
+  border: 1px solid rgba(249, 112, 102, 0.4);
+  color: #FDA29B;
+}
+
+:global([data-theme='dark']) .iconOrange {
+  background-color: rgba(253, 176, 34, 0.15);
+  color: #FDB022;
+}
+
+:global([data-theme='dark']) .iconYellow {
+  background-color: rgba(247, 144, 8, 0.15);
+  color: #FFC84B;
+}
+
+:global([data-theme='dark']) .iconBlue {
+  background-color: rgba(51, 137, 255, 0.15);
+  color: #7CB3FF;
+}
+
+:global([data-theme='dark']) .microMockup {
+  background-color: var(--color-bg-bg-gray-bg-primary, #0C0E12);
+  border-color: var(--color-border-border-gray-border-primary, #22262F);
+}
+
+:global([data-theme='dark']) .mockupAlert {
+  background-color: rgba(240, 68, 56, 0.22);
+  border-color: rgba(249, 112, 102, 0.45);
+  color: #FDA29B;
+}
+
+:global([data-theme='dark']) .alertIconRed {
+  color: #FDA29B;
+}
+
+:global([data-theme='dark']) .conflictOverlap {
+  background-color: #E6352B;
+  color: #FFFFFF;
+  box-shadow: 0 0 10px rgba(240, 68, 56, 0.35);
+}
+
+:global([data-theme='dark']) .conflictItemA {
+  background-color: rgba(158, 121, 255, 0.2);
+  border: 1px solid rgba(158, 121, 255, 0.4);
+  color: #C5B0FF;
+}
+
+:global([data-theme='dark']) .conflictItemB {
+  background-color: rgba(240, 68, 56, 0.25);
+  border: 1px solid rgba(249, 112, 102, 0.45);
+  color: #FDA29B;
+}
+
+:global([data-theme='dark']) .miniTabInactive {
+  background-color: #14161B;
+  border-color: #383A41;
+  color: #95979D;
+}
+
+:global([data-theme='dark']) .miniTabActive {
+  background-color: rgba(253, 176, 34, 0.15);
+  border-color: rgba(253, 176, 34, 0.4);
+  color: #FDB022;
+}
+
+:global([data-theme='dark']) .chatBubbleLeft {
+  background-color: #22262F;
+  color: #F7F7F7;
+}
+
+:global([data-theme='dark']) .chatBubbleRight {
+  background-color: rgba(158, 121, 255, 0.2);
+  color: #C5B0FF;
+}
+
+:global([data-theme='dark']) .payBadge {
+  background-color: #14161B;
+  border-color: #383A41;
+  color: #CECFD2;
+}
+
+@media (max-width: 768px) {
+  .problemGrid {
+    grid-template-columns: 1fr;
+  }
+}

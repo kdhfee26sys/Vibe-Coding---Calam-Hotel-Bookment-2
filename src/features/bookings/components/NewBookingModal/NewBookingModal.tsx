@@ -134,9 +134,22 @@ export const NewBookingModal: React.FC<NewBookingModalProps> = ({ isOpen, onClos
           <div className={styles.formGroup}>
             <label htmlFor="room">Room Type</label>
             <select name="room" id="room" value={formData.room} onChange={handleChange}>
-              <option value="101 · Standard">101 · Standard</option>
-              <option value="203 · Deluxe">203 · Deluxe</option>
-              <option value="301 · Suite">301 · Suite</option>
+              <optgroup label="Standard Rooms">
+                <option value="101 · Standard">101 · Standard</option>
+                <option value="102 · Standard">102 · Standard</option>
+                <option value="105 · Standard">105 · Standard</option>
+              </optgroup>
+              <optgroup label="Deluxe Rooms">
+                <option value="201 · Deluxe">201 · Deluxe</option>
+                <option value="203 · Deluxe">203 · Deluxe</option>
+                <option value="204 · Deluxe">204 · Deluxe</option>
+                <option value="205 · Deluxe">205 · Deluxe</option>
+              </optgroup>
+              <optgroup label="Suite Rooms">
+                <option value="301 · Suite">301 · Suite</option>
+                <option value="302 · Suite">302 · Suite</option>
+                <option value="305 · Suite">305 · Suite</option>
+              </optgroup>
             </select>
           </div>
           <div className={styles.formGroup}>

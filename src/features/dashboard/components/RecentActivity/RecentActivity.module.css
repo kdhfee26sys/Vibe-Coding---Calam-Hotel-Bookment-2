@@ -81,10 +81,10 @@
 .summaryButton {
   margin-top: 1.5rem;
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.75rem 1.25rem;
   background-color: transparent;
   border: 1px solid var(--color-border-border-gray-border-secondary);
-  border-radius: 8px;
+  border-radius: 999px;
   color: var(--color-text-text-gray-text-secondary);
   font-size: 0.875rem;
   font-weight: 500;

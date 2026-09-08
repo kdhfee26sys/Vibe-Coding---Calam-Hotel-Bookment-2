@@ -3,9 +3,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0 1rem;
-  height: 2.25rem;
-  border-radius: 8px; /* Assuming 8px based on modern design */
+  padding: 0 1.25rem;
+  height: 2.375rem;
+  border-radius: 999px;
   font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;

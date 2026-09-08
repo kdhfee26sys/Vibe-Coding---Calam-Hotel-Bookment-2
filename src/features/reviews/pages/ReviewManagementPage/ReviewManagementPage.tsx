@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Download, Star, Flag } from 'lucide-react';
 import { Button } from '../../../../components/design-system/Button/Button';
 import { Select } from '../../../../components/design-system/Select/Select';
+import { exportToCSV } from '../../../../utils/exportUtils';
 import styles from './ReviewManagementPage.module.css';
 
 interface Review {
@@ -113,7 +114,7 @@ export const ReviewManagementPage: React.FC = () => {
             value={sourceFilter}
             onChange={setSourceFilter}
           />
-          <Button variant="secondary">
+          <Button variant="secondary" onClick={() => exportToCSV(filteredReviews, 'reviews')}>
             <Download size={16} /> Export
           </Button>
         </div>

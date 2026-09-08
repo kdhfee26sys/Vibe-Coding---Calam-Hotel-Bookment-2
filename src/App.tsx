@@ -17,6 +17,12 @@ import { StaffManagementPage } from './features/staff/pages/StaffManagementPage/
 import { ReportsPage } from './features/reports/pages/ReportsPage/ReportsPage';
 import { SettingsPage } from './features/settings/pages/SettingsPage/SettingsPage';
 import { ProfilePage } from './features/profile/pages/ProfilePage/ProfilePage';
+import { LandingPage } from './features/landing/pages/LandingPage/LandingPage';
+
+// Auth Providers and Routes
+import { AuthProvider } from './features/auth/context/AuthContext';
+import { ProtectedRoute } from './features/auth/components/ProtectedRoute/ProtectedRoute';
+import { PublicRoute } from './features/auth/components/PublicRoute/PublicRoute';
 
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
@@ -30,39 +36,54 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        
-        {/* Auth Routes */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public Landing Page */}
+          <Route path="/" element={<LandingPage theme={theme} toggleTheme={toggleTheme} />} />
+          
+          {/* Auth Routes */}
+          <Route path="/login" element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          } />
+          <Route path="/register" element={
+            <PublicRoute>
+              <RegisterPage />
+            </PublicRoute>
+          } />
 
-        {/* Protected Dashboard Routes */}
-        <Route element={<MainLayout theme={theme} toggleTheme={toggleTheme} />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/bookings" element={<BookingManagementPage />} />
-          <Route path="/calendar" element={<ReservationCalendarPage />} />
-          <Route path="/rooms" element={<RoomManagementPage />} />
-          <Route path="/guests" element={<GuestManagementPage />} />
-          <Route path="/check-in-out" element={<CheckInOutPage />} />
-          <Route path="/housekeeping" element={<HousekeepingPage />} />
-          <Route path="/payment" element={<PaymentCenterPage />} />
-          <Route path="/reviews" element={<ReviewManagementPage />} />
-          <Route path="/staff" element={<StaffManagementPage />} />
-          <Route path="/reports" element={<ReportsPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          {/* Add more routes here later */}
-        </Route>
-      </Routes>
-      
-      {/* Theme Toggle Button (only on Auth pages, inside MainLayout we have it in Header) */}
-      <Routes>
-        <Route path="/login" element={<ThemeToggle theme={theme} toggleTheme={toggleTheme} />} />
-        <Route path="/register" element={<ThemeToggle theme={theme} toggleTheme={toggleTheme} />} />
-      </Routes>
-    </BrowserRouter>
+          {/* Protected Dashboard Routes */}
+          <Route element={
+            <ProtectedRoute>
+              <MainLayout theme={theme} toggleTheme={toggleTheme} />
+            </ProtectedRoute>
+          }>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/bookings" element={<BookingManagementPage />} />
+            <Route path="/calendar" element={<ReservationCalendarPage />} />
+            <Route path="/rooms" element={<RoomManagementPage />} />
+            <Route path="/guests" element={<GuestManagementPage />} />
+            <Route path="/check-in-out" element={<CheckInOutPage />} />
+            <Route path="/housekeeping" element={<HousekeepingPage />} />
+            <Route path="/payment" element={<PaymentCenterPage />} />
+            <Route path="/reviews" element={<ReviewManagementPage />} />
+            <Route path="/staff" element={<StaffManagementPage />} />
+            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            {/* Add more routes here later */}
+          </Route>
+        </Routes>
+        
+        {/* Theme Toggle Button (only on Auth pages, inside MainLayout we have it in Header) */}
+        <Routes>
+          <Route path="/login" element={<ThemeToggle theme={theme} toggleTheme={toggleTheme} />} />
+          <Route path="/register" element={<ThemeToggle theme={theme} toggleTheme={toggleTheme} />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

@@ -3,6 +3,7 @@ import { Search, Moon, Sun, Bell, LogOut, Menu, User, Settings, HelpCircle } fro
 import { useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 import { GlobalSearchModal } from '../../../components/shared/GlobalSearchModal/GlobalSearchModal';
+import { useAuth } from '../../../features/auth/hooks/useAuth';
 
 interface HeaderProps {
   theme: 'light' | 'dark';
@@ -17,6 +18,7 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, toggleSideba
   const dropdownRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -44,9 +46,19 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, toggleSideba
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleLogout = () => {
-    navigate('/login');
+  const handleLogout = async () => {
+    try {
+      await logout();
+      // Auth state listener handles redirect, or we can explicitly redirect:
+      // navigate('/login');
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
   };
+
+  const displayName = user?.displayName || 'User';
+  const displayEmail = user?.email || '';
+  const avatarUrl = user?.photoURL || `https://api.dicebear.com/7.x/notionists/svg?seed=${encodeURIComponent(displayName)}`;
 
   return (
     <>
@@ -124,12 +136,12 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, toggleSideba
           <div className={styles.profileContainer} ref={dropdownRef}>
             <div className={styles.profile} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
               <img 
-                src="https://api.dicebear.com/7.x/notionists/svg?seed=Wulan" 
-                alt="Wulan Sari" 
+                src={avatarUrl} 
+                alt={displayName} 
                 className={styles.avatar} 
               />
               <div className={styles.profileInfo}>
-                <span className={styles.name}>Wulan Sari</span>
+                <span className={styles.name}>{displayName}</span>
                 <span className={styles.role}>Owner</span>
               </div>
             </div>
@@ -137,8 +149,8 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, toggleSideba
             {isDropdownOpen && (
               <div className={styles.dropdown}>
                 <div className={styles.dropdownHeader}>
-                  <span className={styles.dropdownName}>Wulan Sari</span>
-                  <span className={styles.dropdownRole}>wulan@calamm.com</span>
+                  <span className={styles.dropdownName}>{displayName}</span>
+                  <span className={styles.dropdownRole}>{displayEmail}</span>
                 </div>
                 <div className={styles.dropdownDivider}></div>
                 <button className={styles.dropdownItem} onClick={() => { setIsDropdownOpen(false); navigate('/profile'); }}>

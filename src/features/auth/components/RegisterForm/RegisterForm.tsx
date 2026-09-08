@@ -1,91 +1,171 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Building2, Mail, Key, User, ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { Building2, Mail, Key, User, AlertCircle } from 'lucide-react';
 import { Input } from '../../../../components/design-system/Input/Input';
 import { Button } from '../../../../components/design-system/Button/Button';
+import { SocialAuthButton } from '../SocialAuthButton/SocialAuthButton';
+import { useAuth } from '../../hooks/useAuth';
 import styles from './RegisterForm.module.css';
 
 export const RegisterForm: React.FC = () => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [localError, setLocalError] = useState<string | null>(null);
+
+  const {
+    signInWithGoogle,
+    signInWithApple,
+    signUpWithEmail,
+    actionLoading,
+    error: authError,
+    clearError,
+  } = useAuth();
+
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Registering with:', { name, phone, email, password });
-    navigate('/dashboard');
+  const handleGoogleSignUp = async () => {
+    try {
+      setLocalError(null);
+      await signInWithGoogle();
+      navigate('/dashboard', { replace: true });
+    } catch {
+      // Handled by AuthContext
+    }
   };
+
+  const handleAppleSignUp = async () => {
+    try {
+      setLocalError(null);
+      await signInWithApple();
+      navigate('/dashboard', { replace: true });
+    } catch {
+      // Handled by AuthContext
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      setLocalError('Please fill in all required fields.');
+      return;
+    }
+    if (password.length < 6) {
+      setLocalError('Password must be at least 6 characters.');
+      return;
+    }
+
+    try {
+      setLocalError(null);
+      await signUpWithEmail(email, password, name);
+      navigate('/dashboard', { replace: true });
+    } catch {
+      // Handled by AuthContext
+    }
+  };
+
+  const displayedError = localError || authError;
 
   return (
     <div className={styles.card}>
-      <div className={styles.iconWrapper}>
-        <Building2 size={24} color="var(--color-text-text-gray-text-white)" />
-      </div>
-      
-      <h1 className={styles.title}>Sign up</h1>
-      
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <Input 
-          type="text"
-          label="Name"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          leftIcon={<User size={18} />}
-          required
-        />
-        
-        {/* Phone number input with country code dropdown approximation */}
-        <div className={styles.phoneGroup}>
-          <label className={styles.phoneLabel}>Number</label>
-          <div className={styles.phoneInputContainer}>
-            <div className={styles.countryCode}>
-              <span>ID</span>
-              <ChevronDown size={14} className={styles.chevron} />
-            </div>
-            <input 
-              className={styles.phoneInput}
-              type="tel"
-              placeholder="(+62) 000-0000-0000"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
-            />
-          </div>
+      <div className={styles.headerSection}>
+        <div className={styles.iconWrapper}>
+          <Building2 size={26} color="#FFFFFF" />
         </div>
+        <h1 className={styles.title}>Create account</h1>
+        <p className={styles.subtitle}>Get started with Calamm hotel management</p>
+      </div>
 
-        <Input 
-          type="email"
-          label="Email"
-          placeholder="doni@gmail.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          leftIcon={<Mail size={18} />}
+      {displayedError && (
+        <div className={styles.errorAlert} role="alert">
+          <AlertCircle size={18} className={styles.errorIcon} />
+          <span className={styles.errorText}>{displayedError}</span>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <Input
+          type="text"
+          label="Full Name"
+          placeholder="Wulan Sari"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+            if (displayedError) clearError();
+          }}
+          leftIcon={<User size={18} />}
+          disabled={Boolean(actionLoading)}
           required
         />
-        
-        <Input 
+
+        <Input
+          type="email"
+          label="Email Address"
+          placeholder="admin@calamm.com"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (displayedError) clearError();
+          }}
+          leftIcon={<Mail size={18} />}
+          disabled={Boolean(actionLoading)}
+          required
+        />
+
+        <Input
           type="password"
           label="Password"
-          placeholder="*****"
+          placeholder="••••••••"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            if (displayedError) clearError();
+          }}
           leftIcon={<Key size={18} />}
+          disabled={Boolean(actionLoading)}
           required
         />
-        
+
         <div className={styles.buttonContainer}>
-          <Button type="submit" fullWidth>
-            Sign Up
+          <Button
+            type="submit"
+            fullWidth
+            disabled={Boolean(actionLoading)}
+          >
+            {actionLoading === 'email' ? 'Creating account...' : 'Create Account'}
           </Button>
         </div>
       </form>
-      
+
+      <div className={styles.divider}>
+        <span>or continue with</span>
+      </div>
+
+      {/* Social Sign Up Buttons */}
+      <div className={styles.socialButtons}>
+        <SocialAuthButton
+          provider="google"
+          loading={actionLoading === 'google'}
+          disabled={Boolean(actionLoading)}
+          actionText="Sign up with Google"
+          onClick={handleGoogleSignUp}
+        />
+        <SocialAuthButton
+          provider="apple"
+          loading={actionLoading === 'apple'}
+          disabled={Boolean(actionLoading)}
+          actionText="Sign up with Apple"
+          onClick={handleAppleSignUp}
+        />
+      </div>
+
       <div className={styles.links}>
-        <Link to="/login" className={styles.loginLink}>Have an Account?</Link>
+        <span>
+          Already have an account?{' '}
+          <Link to="/login" className={styles.loginLink}>
+            Sign in
+          </Link>
+        </span>
       </div>
     </div>
   );

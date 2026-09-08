@@ -1,30 +1,106 @@
 .card {
   background-color: var(--color-bg-bg-gray-bg-primary);
-  border-radius: 16px;
-  padding: 3rem;
+  border-radius: 20px;
+  padding: 2.75rem 2.5rem;
   width: 100%;
   max-width: 480px;
   border: 1px solid var(--color-border-border-gray-border-primary);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07), 0 0 1px 1px rgba(0, 0, 0, 0.02);
+  transition: all 0.25s ease;
+}
+
+[data-theme='dark'] .card {
+  background-color: var(--color-bg-bg-gray-bg-primary);
+  border-color: var(--color-border-border-gray-border-secondary);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.headerSection {
+  margin-bottom: 1.75rem;
 }
 
 .iconWrapper {
-  width: 56px;
-  height: 56px;
-  background-color: var(--color-bg-bg-color-bg-brand-solid);
+  width: 52px;
+  height: 52px;
+  background: var(--gradient-brand);
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 8px 16px rgba(138, 93, 255, 0.25);
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: var(--color-text-text-gray-text-primary);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: var(--color-text-text-gray-text-secondary);
   margin: 0;
-  margin-bottom: 2rem;
+  line-height: 1.4;
+}
+
+/* Error Banner */
+.errorAlert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background-color: var(--color-bg-bg-color-bg-error-primary);
+  border: 1px solid var(--color-border-border-color-border-error-subtle);
+  color: var(--color-text-text-color-text-error);
+  padding: 0.875rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.errorIcon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.errorText {
+  flex: 1;
+}
+
+/* Social Buttons Grid */
+.socialButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.25rem 0;
+  color: var(--color-text-text-gray-text-tertiary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--color-border-border-gray-border-primary);
+}
+
+.divider span {
+  padding: 0 0.875rem;
 }
 
 .form {
@@ -34,94 +110,45 @@
 }
 
 .buttonContainer {
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
 }
 
 .buttonContainer button {
-  height: 40px;
+  height: 44px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: 999px;
 }
 
 .links {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border-border-gray-border-primary);
   font-size: 0.875rem;
   font-weight: 500;
 }
 
 .loginLink {
-  color: var(--color-text-text-gray-text-secondary);
+  color: var(--color-text-text-color-text-brand-primary);
   text-decoration: none;
-  transition: color 0.2s ease;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
 }
 
 .loginLink:hover {
-  color: var(--color-text-text-gray-text-primary);
+  opacity: 0.8;
+  text-decoration: underline;
 }
 
-/* Custom styles for the phone number input group */
-.phoneGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
-}
-
-.phoneLabel {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-text-text-gray-text-primary);
-}
-
-.phoneInputContainer {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid var(--color-border-border-gray-border-secondary);
-  background-color: var(--color-bg-bg-gray-bg-primary);
-  transition: all 0.2s ease-in-out;
-  overflow: hidden;
-}
-
-.phoneInputContainer:focus-within {
-  border-color: var(--color-border-border-color-border-brand);
-  box-shadow: 0 0 0 4px var(--color-bg-bg-color-bg-brand-primary-alt);
-}
-
-.countryCode {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  height: 40px;
-  padding: 0 1rem;
-  border-right: 1px solid var(--color-border-border-gray-border-secondary);
-  color: var(--color-text-text-gray-text-tertiary);
-  font-size: 0.875rem;
-  font-weight: 500;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.chevron {
-  color: var(--color-text-text-gray-text-tertiary);
-}
-
-.phoneInput {
-  flex: 1;
-  width: 100%;
-  height: 40px;
-  padding: 0 1rem;
-  border: none;
-  background-color: transparent;
-  color: var(--color-text-text-gray-text-primary);
-  font-family: inherit;
-  font-size: 1rem;
-  outline: none;
-}
-
-.phoneInput::placeholder {
-  color: var(--color-text-text-gray-text-placeholder);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
