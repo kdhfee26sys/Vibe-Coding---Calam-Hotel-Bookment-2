@@ -5,32 +5,28 @@
   right: 0;
   width: 100%;
   z-index: 1000;
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid transparent;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .scrolled {
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-border-border-gray-border-primary, #E9EAEB);
+  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom-color: var(--color-border-border-gray-border-primary, #E9EAEB);
   box-shadow: 0 4px 20px -4px rgba(16, 24, 40, 0.08);
 }
 
 :global([data-theme='dark']) .header {
-  background-color: rgba(12, 14, 18, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(12, 14, 18, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 :global([data-theme='dark']) .scrolled {
-  background-color: rgba(12, 14, 18, 0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(12, 14, 18, 0.92);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.6);
 }
 

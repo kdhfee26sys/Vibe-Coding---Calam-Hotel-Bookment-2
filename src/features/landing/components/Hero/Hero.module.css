@@ -11,12 +11,13 @@
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate3d(-50%, 0, 0);
   width: 1000px;
   height: 480px;
   background: radial-gradient(ellipse at center, rgba(138, 93, 255, 0.15) 0%, rgba(79, 70, 229, 0.05) 50%, transparent 80%);
   pointer-events: none;
   z-index: 0;
+  contain: strict;
 }
 
 .container {
@@ -436,7 +437,6 @@
   padding: 0.875rem 1rem;
   text-align: left;
   z-index: 10;
-  backdrop-filter: blur(8px);
 }
 
 .floatingCalendar {
@@ -444,6 +444,7 @@
   right: -24px;
   width: 260px;
   animation: floatSlow 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .floatingHousekeeping {
@@ -451,12 +452,14 @@
   left: -28px;
   width: 240px;
   animation: floatSlow 7s ease-in-out infinite reverse;
+  will-change: transform;
 }
 
 .floatingPayment {
   bottom: -20px;
   right: 48px;
   animation: floatSlow 8s ease-in-out infinite 1s;
+  will-change: transform;
 }
 
 @keyframes floatSlow {

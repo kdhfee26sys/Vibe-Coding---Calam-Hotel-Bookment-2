@@ -162,7 +162,7 @@ export const Hero: React.FC = () => {
                           formatter={(val: any) => [`Rp ${Number(val).toLocaleString('id-ID')}`, 'Revenue']}
                           contentStyle={{ background: '#181D27', border: 'none', borderRadius: '8px', color: '#fff', fontSize: '12px' }}
                         />
-                        <Area type="monotone" dataKey="revenue" stroke="#8A5DFF" strokeWidth={2.5} fillOpacity={1} fill="url(#heroRevGrad)" />
+                        <Area type="monotone" dataKey="revenue" stroke="#8A5DFF" strokeWidth={2.5} fillOpacity={1} fill="url(#heroRevGrad)" isAnimationActive={false} />
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>

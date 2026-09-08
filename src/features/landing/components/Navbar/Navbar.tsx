@@ -14,14 +14,17 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let prevScrolled = window.scrollY > 20;
+    setIsScrolled(prevScrolled);
+
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      const shouldScroll = window.scrollY > 20;
+      if (shouldScroll !== prevScrolled) {
+        prevScrolled = shouldScroll;
+        setIsScrolled(shouldScroll);
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

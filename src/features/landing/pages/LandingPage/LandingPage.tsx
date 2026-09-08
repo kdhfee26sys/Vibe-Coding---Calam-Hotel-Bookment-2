@@ -31,9 +31,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ theme, toggleTheme }) 
 
       {/* Main Content Flow */}
       <main className={styles.main}>
-        <RevealSection>
-          <Hero />
-        </RevealSection>
+        <Hero />
         <RevealSection>
           <TrustBar />
         </RevealSection>
