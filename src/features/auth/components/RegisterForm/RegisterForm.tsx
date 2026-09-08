@@ -15,7 +15,6 @@ export const RegisterForm: React.FC = () => {
 
   const {
     signInWithGoogle,
-    signInWithApple,
     signUpWithEmail,
     actionLoading,
     error: authError,
@@ -28,16 +27,6 @@ export const RegisterForm: React.FC = () => {
     try {
       setLocalError(null);
       await signInWithGoogle();
-      navigate('/dashboard', { replace: true });
-    } catch {
-      // Handled by AuthContext
-    }
-  };
-
-  const handleAppleSignUp = async () => {
-    try {
-      setLocalError(null);
-      await signInWithApple();
       navigate('/dashboard', { replace: true });
     } catch {
       // Handled by AuthContext
@@ -149,13 +138,6 @@ export const RegisterForm: React.FC = () => {
           disabled={Boolean(actionLoading)}
           actionText="Sign up with Google"
           onClick={handleGoogleSignUp}
-        />
-        <SocialAuthButton
-          provider="apple"
-          loading={actionLoading === 'apple'}
-          disabled={Boolean(actionLoading)}
-          actionText="Sign up with Apple"
-          onClick={handleAppleSignUp}
         />
       </div>
 

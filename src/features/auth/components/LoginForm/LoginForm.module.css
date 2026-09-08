@@ -130,6 +130,7 @@
   border-top: 1px solid var(--color-border-border-gray-border-primary);
   font-size: 0.875rem;
   font-weight: 500;
+  color: var(--color-text-text-gray-text-secondary);
 }
 
 .forgotPassword {
@@ -146,12 +147,42 @@
   color: var(--color-text-text-color-text-brand-primary);
   text-decoration: none;
   font-weight: 600;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
 
 .signup:hover {
   opacity: 0.8;
   text-decoration: underline;
+}
+
+[data-theme='dark'] .divider {
+  color: #94A3B8;
+}
+
+[data-theme='dark'] .divider::before,
+[data-theme='dark'] .divider::after {
+  border-bottom-color: #27272A;
+}
+
+[data-theme='dark'] .links {
+  border-top-color: #27272A;
+  color: #CBD5E1;
+}
+
+[data-theme='dark'] .forgotPassword {
+  color: #94A3B8;
+}
+
+[data-theme='dark'] .forgotPassword:hover {
+  color: #F1F5F9;
+}
+
+[data-theme='dark'] .signup {
+  color: #A78BFA;
+}
+
+[data-theme='dark'] .signup:hover {
+  color: #C4B5FD;
 }
 
 @keyframes fadeIn {

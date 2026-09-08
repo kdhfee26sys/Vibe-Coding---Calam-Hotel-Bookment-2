@@ -17,7 +17,7 @@ const FAQS = [
   },
   {
     q: 'Is my hotel data secure?',
-    a: 'Yes. Calam utilizes enterprise Firebase Authentication (Google, Apple, Email), strict Role-Based Access Controls (RBAC), and SSL-encrypted database communication. Only authorized team members can view revenue and confidential guest data.',
+    a: 'Yes. Calam utilizes enterprise Firebase Authentication (Google, Email), strict Role-Based Access Controls (RBAC), and SSL-encrypted database communication. Only authorized team members can view revenue and confidential guest data.',
   },
   {
     q: 'Can I access Calam on an iPad or tablet?',
