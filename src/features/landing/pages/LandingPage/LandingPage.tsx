@@ -15,7 +15,6 @@ import { Pricing } from '../../components/Pricing/Pricing';
 import { FAQ } from '../../components/FAQ/FAQ';
 import { FinalCTA } from '../../components/FinalCTA/FinalCTA';
 import { Footer } from '../../components/Footer/Footer';
-import { RevealSection } from '../../components/RevealSection/RevealSection';
 import styles from './LandingPage.module.css';
 
 interface LandingPageProps {
@@ -32,51 +31,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({ theme, toggleTheme }) 
       {/* Main Content Flow */}
       <main className={styles.main}>
         <Hero />
-        <RevealSection>
-          <TrustBar />
-        </RevealSection>
-        <RevealSection>
-          <ProblemSection />
-        </RevealSection>
-        <RevealSection>
-          <SolutionSection />
-        </RevealSection>
-        <RevealSection>
-          <FeatureBento />
-        </RevealSection>
-        <RevealSection>
-          <ProductShowcase />
-        </RevealSection>
-        <RevealSection>
-          <ROIMetrics />
-        </RevealSection>
-        <RevealSection>
-          <WhyCalam />
-        </RevealSection>
-        <RevealSection>
-          <RoleSolutions />
-        </RevealSection>
-        <RevealSection>
-          <SecuritySection />
-        </RevealSection>
-        <RevealSection>
-          <Testimonials />
-        </RevealSection>
-        <RevealSection>
-          <Pricing />
-        </RevealSection>
-        <RevealSection>
-          <FAQ />
-        </RevealSection>
-        <RevealSection>
-          <FinalCTA />
-        </RevealSection>
+        <TrustBar />
+        <ProblemSection />
+        <SolutionSection />
+        <FeatureBento />
+        <ProductShowcase />
+        <ROIMetrics />
+        <WhyCalam />
+        <RoleSolutions />
+        <SecuritySection />
+        <Testimonials />
+        <Pricing />
+        <FAQ />
+        <FinalCTA />
       </main>
 
       {/* Global Footer */}
-      <RevealSection>
-        <Footer />
-      </RevealSection>
+      <Footer />
     </div>
   );
 };
